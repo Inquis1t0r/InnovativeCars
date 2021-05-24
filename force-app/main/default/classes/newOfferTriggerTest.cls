@@ -17,7 +17,11 @@ public with sharing class newOfferTriggerTest {
         //given
         List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateTestOffers(200, true);
         //when
+        Test.startTest();
+        List<Database.SaveResult> resuts = Database.insert(newOffers, false);
+        Test.stopTest();
         //then
+        System.assertEquals(200, resuts.size());
     }
 
 }

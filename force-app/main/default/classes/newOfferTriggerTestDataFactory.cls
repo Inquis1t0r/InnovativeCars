@@ -1,7 +1,9 @@
 public with sharing class newOfferTriggerTestDataFactory {
     public static List<Oferta__c> generateTestOffers(Integer numberOfGeneratedOffers, Boolean exceedLimits) {
         Integer numberOfTestEntities = numberOfGeneratedOffers;
+        
         Account account = new Account(Name = 'Car dealer for testing');
+        insert account;
 
         List<Salon__c> newSalons = new List<Salon__c>();
         for(Integer i = numberOfTestEntities; i > 0; i--){
@@ -20,5 +22,7 @@ public with sharing class newOfferTriggerTestDataFactory {
             newOffers.add(Pojazd__c = newVehicles[i], Salon__c = newSalons[0], Oferta_fizyczna__c = true);
         }
         insert newOffers;
+
+        return newOffers;
     }
 }
