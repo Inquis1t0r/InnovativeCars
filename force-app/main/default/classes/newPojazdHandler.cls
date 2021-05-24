@@ -4,8 +4,6 @@ public with sharing class newPojazdHandler {
     }
 
     public static void freeSlotsCheck(List<Pojazd__c> listOfNewCars){
-        //Map<Id, Decimal> maxSlots = new Map<Integer, Decimal>([SELECT Id, Liczba_miejsc__c FROM Salon__c]);
-
 
          list<Salon__c> salony = new list<Salon__c>();
          salony = [SELECT Id, Liczba_miejsc__c FROM Salon__c];
