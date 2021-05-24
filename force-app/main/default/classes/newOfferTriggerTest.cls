@@ -1,21 +1,21 @@
 @isTest
 public with sharing class newOfferTriggerTest {
-    public newOfferTriggerTest() {
-
-    }
-
     @isTest
     public static void shouldAddNewOffer(){
         //given
+        List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateTestOffers(200, false);
         //when
+        Test.startTest();
+        List<Database.SaveResult> resuts = Database.insert(newOffers, true);
+        Test.stopTest();
         //then
-
+        System.assertEquals(200, resuts.size());
     }
 
     @isTest
     public static void shouldNotAllowNewOfferWhenAlreadyExist(){
-        //todo
         //given
+        List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateTestOffers(200, true);
         //when
         //then
     }
