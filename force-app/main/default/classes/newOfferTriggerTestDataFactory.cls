@@ -1,5 +1,5 @@
 public with sharing class newOfferTriggerTestDataFactory {
-    public newOfferTriggerTestDataFactory(Integer numberOfGeneratedOffers, Boolean exceedLimits) {
+    public static List<Oferta__c> generateTestOffers(Integer numberOfGeneratedOffers, Boolean exceedLimits) {
         Integer numberOfTestEntities = numberOfGeneratedOffers;
         Account account = new Account(Name = 'Car dealer for testing');
 
