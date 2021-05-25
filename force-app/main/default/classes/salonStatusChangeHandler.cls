@@ -1,19 +1,25 @@
 public with sharing class salonStatusChangeHandler {
+
+    private final string endpoint = 'https://jsonplaceholder.typicode.com/posts';
+
     public static void checkRepairCrewAvaliability(){
         Http server = new Http();
         HttpRequest req = new HttpRequest();
-        String request = '';
+        String requestBody = '';
         req.setEndpoint('https://jsonplaceholder.typicode.com/posts');
         req.setMethod('POST');
-        req.setBody(JSON.serialize(request)); 
+        req.setBody(JSON.serialize(requestBody)); 
         HttpResponse resp = server.send(req);
 
-        If(resp.getStatusCode() =201)
+        If(resp.getStatusCode() == 201)
         {
             //TODO
         }else{
             System.debug(LoggingLevel.ERROR,'Bład połączenia');
         }
+    }
 
+    public static void createRenovationEvent(){
+        //TODO: New Renovation case 
     }
 }
