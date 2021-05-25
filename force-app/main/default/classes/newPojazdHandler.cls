@@ -1,7 +1,4 @@
 public with sharing class newPojazdHandler {
-    public newPojazdHandler() {
-
-    }
 
     public static void freeSlotsCheck(List<Pojazd__c> listOfNewCars){
 
