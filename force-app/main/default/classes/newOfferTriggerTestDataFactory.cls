@@ -12,6 +12,7 @@ public with sharing class newOfferTriggerTestDataFactory {
         insert newSalons;
 
         List<Pojazd__c> newVehicles = new List<Pojazd__c>();
+        //todo: foreach Salon__c
         for(Integer i = numberOfTestEntities; i >= 0; i--){
             newVehicles.add(new Pojazd__c (Name = 'Test ' + i, Numer_seryjny__c = 'testSN' +i, Account__c = account.Id, Cena__c = 100, Marka__c = 'test', Model__c = 'asdf', Salon__c = newSalons[numberOfTestEntities].Id));
         }
