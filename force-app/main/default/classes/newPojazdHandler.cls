@@ -6,6 +6,7 @@
  */
 public with sharing class newPojazdHandler {
 
+    private string errorMsg = 'Liczba miejsc w salonie przekroczona! Maksymalna pojemność salonu :';
     public static void freeSlotsCheck(List<Pojazd__c> listOfNewCars){
 
          List<Salon__c> salony = new list<Salon__c>([SELECT Id, Liczba_miejsc__c FROM Salon__c]);
@@ -19,7 +20,7 @@ public with sharing class newPojazdHandler {
         {             
             Decimal salonSlots = maxSlots.get(poj.Salon__c);
             if(salonSlots + 1 > salonSlots){
-                poj.adderror('Liczba miejsc w salonie przekroczona! Maksymalna pojemność salonu :' + salonSlots);
+                poj.adderror(errorMsg + salonSlots);
             }
         }
     }
