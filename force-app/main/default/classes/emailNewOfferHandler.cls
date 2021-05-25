@@ -1,10 +1,10 @@
 public with sharing class emailNewOfferHandler {
 
     @future
-    public static void sendMail(Set <Id> newOffersIDs){
+    public static void sendMail(Set<Id> newOffersIDs){
         Integer newOffersCount = newOffersIDs.size();
         Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-        message.toAddresses = new String[] {'xyz@gmail.com'}; //TODO
+        message.toAddresses = new String[] {'vtc57104@eoopy.com'}; //TODO
         message.optOutPolicy = 'FILTER';
         message.subject = 'Nowe oferty';
         message.plainTextBody = 'Pojawiły się nowe oferty. Liczba nowych ofer: ' + newOffersCount;
