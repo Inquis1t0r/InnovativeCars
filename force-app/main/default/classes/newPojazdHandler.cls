@@ -1,3 +1,9 @@
+/**
+ *
+ * @author  <piotr.kazimierski@accenture.com>
+ * @date  24.05.2021
+ * @description freeSlotsCheck method checks if there is enaught free slots for new Pojazd__c objects
+ */
 public with sharing class newPojazdHandler {
 
     public static void freeSlotsCheck(List<Pojazd__c> listOfNewCars){
