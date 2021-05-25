@@ -1,3 +1,9 @@
+/**
+ *
+ * @author  <piotr.kazimierski@accenture.com>
+ * @date  24.05.2021
+ * @description generates data for testing purposes 
+ */
 public with sharing class newOfferTriggerTestDataFactory {
     public static List<Oferta__c> generateTestOffers(Integer numberOfGeneratedOffers, Boolean exceedLimits) {
         Integer numberOfTestEntities = numberOfGeneratedOffers;
