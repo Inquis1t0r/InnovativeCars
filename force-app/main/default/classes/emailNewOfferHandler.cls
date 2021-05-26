@@ -11,9 +11,15 @@ public class emailNewOfferHandler {
     public static final string EMAIL_BODY = 'Pojawiły się nowe oferty. Liczba nowych ofert: ';
     public static final string POLICY = 'FILTER';
     public static final string RECIPIENT_EMAIL = 'vtc57104@eoopy.com';
+    public static final string ARGUMENT_ERROR_MSG = 'Set cennot be empty!';
 
     @future
     public static void sendMail(Set<Id> newOffersIDs){
+
+        if(newOffersIDs == null || newOffersIDs.isEmpty()){
+          throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
+        }
+
         Integer newOffersCount = newOffersIDs.size();
         Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
         message.toAddresses = new String[] {RECIPIENT_EMAIL}; 
