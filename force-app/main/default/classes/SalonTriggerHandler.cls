@@ -7,11 +7,11 @@
 
 public class SalonTriggerHandler {
 
-    private static final string ENDPOINT = 'https://jsonplaceholder.typicode.com/posts';
-    private static final string CONN_ERR = 'Bład połączenia'; 
-    private static final string REQUEST_METHOD = 'POST';
-    private static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
-    private static final Id WAREHOUSE_ID = a0009000008q5ApAAI;
+    public static final string ENDPOINT = 'https://jsonplaceholder.typicode.com/posts';
+    public static final string CONN_ERR = 'Bład połączenia'; 
+    public static final string REQUEST_METHOD = 'POST';
+    public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
+    public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI';
 
     @InvocableMethod
     public static void checkRepairCrewAvaliability(){
@@ -39,7 +39,7 @@ public class SalonTriggerHandler {
     * @description Changes localisation of vehicles from deleted location, to designated warehouse
     **/
     public static void sendVehiclesToWarehouse(List<Salon__c> inDeletedSalons){
-        if(inDeletedSalons = null || inDeletedSalons.isEmpty()){
+        if(inDeletedSalons == null || inDeletedSalons.isEmpty()){
             throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
         }
 
