@@ -1,4 +1,4 @@
-public with sharing class salonStatusChangeHandler {
+public with sharing class SalonTriggerHandler {
 
     private final string endpoint = 'https://jsonplaceholder.typicode.com/posts';
 

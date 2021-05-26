@@ -1,3 +1,3 @@
-trigger salonStatusChangeTrigger on Salon__c (after update) {
+trigger SalonTrigger on Salon__c (after update) {
 
 }
