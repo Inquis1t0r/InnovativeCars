@@ -1,4 +1,11 @@
-public with sharing class SalonTriggerHandler {
+/**
+ *
+ * @author  <piotr.kazimierski@accenture.com>
+ * @date  25.05.2021
+ * @description Handler for Salon__c changes
+ */
+
+public class SalonTriggerHandler {
 
     private static final string ENDPOINT = 'https://jsonplaceholder.typicode.com/posts';
     private static final string CONN_ERR = 'Bład połączenia'; 
@@ -27,6 +34,9 @@ public with sharing class SalonTriggerHandler {
         //TODO: New Renovation case 
     }
 
+    /** 
+    * @description Changes localisation of vehicles from deleted location, to designated warehouse
+    **/
     public static void sendVehiclesToWarehouse(List<Salon__c> inDeletedSalons){
         if(inDeletedSalons = null || inDeletedSalons.isEmpty()){
             throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
