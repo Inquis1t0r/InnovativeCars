@@ -13,6 +13,7 @@ public class SalonTriggerHandler {
     private static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
     private static final Id WAREHOUSE_ID = a0009000008q5ApAAI;
 
+    @InvocableMethod
     public static void checkRepairCrewAvaliability(){
         Http server = new Http();
         HttpRequest req = new HttpRequest();
