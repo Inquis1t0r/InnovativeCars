@@ -4,12 +4,10 @@
  * @date  24.05.2021
  * @description freeSlotsCheck method checks if there is enaught free slots for new Pojazd__c objects
  */
-public with sharing class newPojazdHandler {
-
-    private final string errorMsg = 'Liczba miejsc w salonie przekroczona! Maksymalna pojemność salonu :';
+public with sharing class PojazdHandler {
 
     public static void freeSlotsCheck(List<Pojazd__c> inListOfNewCars){
-
+        string errorMsg = 'Liczba miejsc w salonie przekroczona! Maksymalna pojemność salonu :';
          List<Salon__c> salons = new list<Salon__c>([SELECT Id, Liczba_miejsc__c FROM Salon__c]);
 
          Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
