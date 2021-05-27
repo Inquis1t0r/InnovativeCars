@@ -20,13 +20,15 @@ public class PojazdTriggerTestDataFactory {
     public static final String testVehicleBrand = 'Ford';
     public static final String testVehicleModel = 'Mustang';
     public static final String testVehiclePower = '450';
+    public static final String testVehicleCombustion = '11,5';
     public static final String testVehicleSN = '965212';
     public static final String testVehicleGenre = 'sportowe';
     public static final String testVehicleStatus = 'nowy';
     public static final Account testAccount = addTestAccount();
     public static final Salon__c testSalon = addTestSalon();
+    public static final Boolean testTelemetryNormValue = true;
 
-    public static void addTestVehicles(Integer numberOfTestRecords){
+    public static List<Pojazd__c> addTestVehicles(Integer numberOfTestRecords){
         List<Pojazd__c> testVehicles = new List<Pojazd__c>();
         for(Integer i = 0; i < numberOfTestRecords; i++){
             testVehicles.add(new Pojazd__c(
@@ -43,6 +45,7 @@ public class PojazdTriggerTestDataFactory {
             ));
         }
         insert testVehicles;
+        return testVehicles;
     }
 
     public static Account addTestAccount(){
@@ -59,7 +62,19 @@ public class PojazdTriggerTestDataFactory {
 
     public static void addTestPojazdEntitiesWithTelemetry(Integer numberOfTestRecords){
 
-
-        //TODO EnvironmentalImpact__c factory
+        List<Pojazd__c> testVehicles = addTestVehicles(numberOfTestRecords);
+        List<EnvironmentalImpact__c> testTelemetryData = new List<EnvironmentalImpact__c>();
+        for(Pojazd__c vehicle : testVehicles){
+            testTelemetryData.add(new EnvironmentalImpact__c(
+                Marka__c = vehicle.Marka__c,
+                moc__c = vehicle.moc__c,
+                Model__c = vehicle.Model__c,
+                Numer_seryjny__c = vehicle.Numer_seryjny__c,
+                spalanie__c = vehicle.spalanie__c,
+                Norma__c = testTelemetryNormValue,
+                warto__c = testVehiclePrice,
+                wiek_pojazdu__c = String.valueOf(testVehicleBrand.length())
+            ));
+        }
     }
 }
