@@ -31,7 +31,7 @@ public class PojazdTriggerHandler {
         }
     }
 
-    public static void moveTelemetryData(List<Pojazd__c> inListOfDeletedCars){
+    public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){
         List<Telemetria__c> telemetryDataForDeletedCars = new List<Telemetria__c>([select Id from Telemetria__c where Pojazd__c IN :Trigger.Old]);
 
     }
