@@ -29,8 +29,7 @@ public class emailNewOfferHandler {
         Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {message};
         Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
         
-        if(newOffersCount > 0){
-            messaging.sendEmail(new Messaging.SingleEmailMessage[] { message });
-        }
+        messaging.sendEmail(new Messaging.SingleEmailMessage[] { message });
+        
     }
 }
