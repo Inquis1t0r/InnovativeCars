@@ -2,8 +2,7 @@
  *
  * @author  <piotr.kazimierski@accenture.com>
  * @date  24.05.2021
- * @description sendMail method sends single mail after each new set of Oferta__c 
- * @usage Place your test mail, instead of 'vtc57104@eoopy.com' for testing
+ * @description Handles sending email after new offer cration
  */
 public class emailNewOfferHandler {
 
@@ -13,6 +12,13 @@ public class emailNewOfferHandler {
     public static final string RECIPIENT_EMAIL = 'vtc57104@eoopy.com';
     public static final string ARGUMENT_ERROR_MSG = 'Set cennot be empty!';
 
+    /**
+     *
+     * @author  <piotr.kazimierski@accenture.com>
+     * @date  24.05.2021
+     * @description sends single mail after each new set of Oferta__c
+     * @usage Place your test mail, instead of 'vtc57104@eoopy.com' to test output
+     */
     @future
     public static void sendMail(Set<Id> newOffersIDs){
 
