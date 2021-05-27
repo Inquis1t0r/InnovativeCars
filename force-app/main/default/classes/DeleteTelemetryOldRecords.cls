@@ -5,17 +5,22 @@
  * @description Execute method removes Telemetria__c records with createddate >= 30 days ago //1 Day for testing purposes
  */
 global with sharing class DeleteTelemetryOldRecords implements Database.Batchable<sObject>, Schedulable{
-        
 
-
-        private final String testQuery = 'select Id FROM Telemetria__c WHERE createddate = LAST_N_DAYS:1';
-        private final String query = 'select Id FROM Telemetria__c WHERE createddate = LAST_N_DAYS:30';
+    private final String query = 'select Id FROM Telemetria__c WHERE createddate = ';
         //Schedulable
         global void execute(SchedulableContext SC) {
-            List<Telemetria__c> telemetryOldRecords = Database.query(query);
+            String period = '';
+
+            if(Test.isRunningTest()){
+                period += 'LAST_N_DAYS:1';
+            }else{
+                period += 'LAST_N_DAYS:30';
+            }
+
+            List<Telemetria__c> telemetryOldRecords = Database.query(query + period);
             if(!telemetryOldRecords.isEmpty()){
                 //delete telemetryOldRecords;
-                Database.executeBatch(this.DeleteTelemetryOldRecords(query));
+                Database.executeBatch(new DeleteTelemetryOldRecords(query + period));
             }
         }
 
@@ -33,6 +38,6 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         }
 
           public void finish(Database.BatchableContext bc) {
-        }
 
+        }
 }
