@@ -17,7 +17,8 @@ public class SalonTriggerHandler {
     public static void checkRepairCrewAvaliability(){
         Http server = new Http();
         HttpRequest req = new HttpRequest();
-        String requestBody = '';
+        //String requestBody = '';
+        RequestBody requestBody = new RequestBody();
         req.setEndpoint(ENDPOINT);
         req.setMethod(REQUEST_METHOD);
         req.setBody(JSON.serialize(requestBody)); 
@@ -25,7 +26,8 @@ public class SalonTriggerHandler {
 
         If(resp.getStatusCode() == 201)
         {
-            //TODO
+            System.debug(response.getBody());
+            //System.debug('success');
         }else{
             System.debug(LoggingLevel.ERROR, CONN_ERR);
         }
