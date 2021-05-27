@@ -8,13 +8,14 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         
 
 
-        private final String query = 'select Id FROM Telemetria__c WHERE createddate = LAST_N_DAYS:1';
+        private final String testQuery = 'select Id FROM Telemetria__c WHERE createddate = LAST_N_DAYS:1';
+        private final String query = 'select Id FROM Telemetria__c WHERE createddate = LAST_N_DAYS:30';
         //Schedulable
         global void execute(SchedulableContext SC) {
             List<Telemetria__c> telemetryOldRecords = Database.query(query);
             if(!telemetryOldRecords.isEmpty()){
                 //delete telemetryOldRecords;
-                Database.executeBatch(new DeleteTelemetryOldRecords(query));
+                Database.executeBatch(this.DeleteTelemetryOldRecords(query));
             }
         }
 
