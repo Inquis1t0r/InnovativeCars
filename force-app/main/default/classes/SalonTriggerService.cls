@@ -30,11 +30,9 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
         List<Case> renovationCases = new List<Case>([SELECT Id FROM Case WHERE Id IN :listToCreateRenovationCaseIDs]);
         Http server = new Http();
         HttpRequest req = new HttpRequest();
-        //String requestBody = '';
-        //RequestBody requestBody = new RequestBody();
         req.setEndpoint(ENDPOINT);
         req.setMethod(REQUEST_METHOD);
-        req.setBody(JSON.serialize('')); //casesList
+        req.setBody(JSON.serialize(renovationCases)); 
         HttpResponse resp = server.send(req);
 
         If(resp.getStatusCode() == 201)
