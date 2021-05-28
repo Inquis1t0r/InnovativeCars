@@ -27,8 +27,7 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
         }
 
     }
-
-    //@InvocableMethod
+    
     @future(callout=true)
     public static void checkRepairCrewAvaliability(List<Id> listToCreateRenovationCaseIDs){
         List<Case> renovationCases = new List<Case>([SELECT Id FROM Case WHERE Id IN :listToCreateRenovationCaseIDs]);
