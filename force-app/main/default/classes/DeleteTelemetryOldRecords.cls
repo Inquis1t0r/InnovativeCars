@@ -8,6 +8,12 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
 
     private final String query = 'select Id FROM Telemetria__c WHERE createddate = ';
         //Schedulable
+        //Scheduler code example:
+        //public static String CRON_EXP = '0 0 0 28 5 ? 2022';
+        //String jobId = System.schedule('DeleteTelemetryOldRecords',
+        //CRON_EXP,
+        //new DeleteTelemetryOldRecords());
+
         global void execute(SchedulableContext SC) {
             String period = '';
 
