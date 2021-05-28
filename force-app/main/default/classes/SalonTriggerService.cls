@@ -5,6 +5,8 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
     public static final string REQUEST_METHOD = 'POST';
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
     public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI';
+    public static final String CASE_ORIGIN = 'Web';
+    public static final String CASE_SUBJECT = 'Renovation required for: ';
 
     public SalonTriggerService(List<Salon__c> listToCreateRenovationCase) {
         this.listToCreateRenovationCase = listToCreateRenovationCase;
@@ -13,7 +15,7 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
     public void execute(QueueableContext ctx){
         List<Case> renovationCases = new List<Case>();
         for(Salon__c salon : listToCreateRenovationCase){
-            renovationCases.add();//TODO: parameters
+            renovationCases.add(new Case(Origin = CASE_ORIGIN, Salon__c = salon.Id, Subject = CASE_SUBJECT + salon.Name));
         }
         insert renovationCases;
 
