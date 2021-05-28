@@ -43,6 +43,10 @@ public class SalonTriggerHandler {
             if(salon.Status_salonu__c == salonStatusClosed)
             listToCreateRenovationCase.add(salon);
         }
+        if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
+            //TODO: Job schedule
+        }
+        
     }
 
     /** 
