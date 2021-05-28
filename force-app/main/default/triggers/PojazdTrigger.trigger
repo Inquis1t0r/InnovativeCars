@@ -11,8 +11,7 @@ trigger PojazdTrigger on Pojazd__c (before insert, before delete) {
 		PojazdTriggerHandler.freeSlotsCheck(Trigger.new);
 	}
 	if(Trigger.isDelete){
-		//TODO
-
+		PojazdTriggerHandler.createEnvironmentalTelemetryData(Trigger.Old);
 	}
 	
 }
