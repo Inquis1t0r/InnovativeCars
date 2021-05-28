@@ -38,6 +38,5 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         }
 
           public void finish(Database.BatchableContext bc) {
-
         }
 }
