@@ -31,8 +31,22 @@ public class PojazdTriggerHandler {
         }
     }
 
-    public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){
-        List<Telemetria__c> telemetryDataForDeletedCars = new List<Telemetria__c>([select Id from Telemetria__c where Pojazd__c IN :Trigger.Old]);
+    public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){//Trigger.Old
+        List<Telemetria__c> telemetryDataForDeletedCars = new List<Telemetria__c>([select Id from Telemetria__c where Pojazd__c IN :inListOfDeletedCars]);
+        List<EnvironmentalImpact__c> newEnvironmentalImpactRecords = new List<EnvironmentalImpact__c>();
 
+        for(Pojazd__c vehicle : inListOfDeletedCars){
+            newEnvironmentalImpactRecords.add(new EnvironmentalImpact__c(
+            Marka__c = vehicle.Marka__c,
+            moc__c = vehicle.moc__c,
+            Model__c = vehicle.Model__c,
+            Numer_seryjny__c = vehicle.Numer_seryjny__c,
+            spalanie__c = vehicle.spalanie__c,
+            Norma__c = vehicle.Telemetria__r.Norma__c,
+            warto__c = vehicle.Telemetria__r.warto__c,
+            wiek_pojazdu__c = vehicle.Telemetria__r.wiek_pojazdu__c
+            ));
+        }
+        insert newEnvironmentalImpactRecords;
     }
 }
