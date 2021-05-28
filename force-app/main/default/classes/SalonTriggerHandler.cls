@@ -10,8 +10,6 @@ public class SalonTriggerHandler {
 
     public static final String salonStatusClosed = 'Zamknięty';
 
-
-
     /** 
     * @description Creates list of Salon__c with closed status
     **/
@@ -23,6 +21,7 @@ public class SalonTriggerHandler {
         }
         if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
             //TODO: Job schedule
+            Id jobId = System.enqueueJob(new SalonTriggerService(listToCreateRenovationCase));
         }
         
     }

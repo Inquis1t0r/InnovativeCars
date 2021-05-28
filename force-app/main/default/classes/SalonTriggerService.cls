@@ -11,12 +11,17 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
     }
 
     public void execute(QueueableContext ctx){
+        List<Case> renovationCases = new List<Case>();
+        for(Salon__c salon : listToCreateRenovationCase){
+            renovationCases.add();
+        }
+        insert renovationCases;
 
     }
 
     //@InvocableMethod
     @future(callout=true)
-    public static void checkRepairCrewAvaliability(){
+    public static void checkRepairCrewAvaliability(List<Salon__c> listToCreateRenovationCase){//TODO: change to Ids
         Http server = new Http();
         HttpRequest req = new HttpRequest();
         //String requestBody = '';
