@@ -6,7 +6,8 @@
  */
 global with sharing class DeleteTelemetryOldRecords implements Database.Batchable<sObject>, Schedulable{
 
-    private final String query = 'select Id FROM Telemetria__c WHERE createddate = ';
+    private final String query = 'SELECT Id FROM Telemetria__c WHERE createddate = ';
+    private final String limitQuery = 'LIMIT 1';
         //Schedulable
         //Scheduler code example:
         //public static String CRON_EXP = '0 0 0 28 5 ? 2022';
@@ -23,7 +24,7 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
                 period += 'LAST_N_DAYS:30';
             }
 
-            List<Telemetria__c> telemetryOldRecords = Database.query(query + period);
+            List<Telemetria__c> telemetryOldRecords = Database.query(query + period + limitQuery);
             if(!telemetryOldRecords.isEmpty()){
 
                 Database.executeBatch(this.DeleteTelemetryOldRecords(query + period));
