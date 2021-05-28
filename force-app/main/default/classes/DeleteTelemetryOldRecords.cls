@@ -18,14 +18,15 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
             String period = '';
 
             if(Test.isRunningTest()){
-                period += 'LAST_N_DAYS:1';
+                period += 'LAST_N_DAYS:1 LIMIT 1';
             }else{
-                period += 'LAST_N_DAYS:30';
+                period += 'LAST_N_DAYS:30 LIMIT 1';
             }
 
             List<Telemetria__c> telemetryOldRecords = Database.query(query + period);
             if(!telemetryOldRecords.isEmpty()){
-                Database.executeBatch(new DeleteTelemetryOldRecords(query + period));
+
+                Database.executeBatch(this.DeleteTelemetryOldRecords(query + period));
             }
         }
 
@@ -39,9 +40,13 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         }
 
         public void execute(Database.BatchableContext bc, List<sObject> scope){
+            if(scope.size() == 0 || scope == null){
+                finish();
+            }
             delete scope;
         }
 
           public void finish(Database.BatchableContext bc){
+            //system.debug('Cleanup finished or no records found');
         }
 }
