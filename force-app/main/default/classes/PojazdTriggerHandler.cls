@@ -2,13 +2,16 @@
  *
  * @author  <piotr.kazimierski@accenture.com>
  * @date  24.05.2021
- * @description freeSlotsCheck method checks if there is enaught free slots for new Pojazd__c objects
+ * @description Handler for Pojazd__c Trigger
  */
 public class PojazdTriggerHandler {
 
     public static final string ERROR_MSG = 'Liczba miejsc w salonie przekroczona! Maksymalna pojemność salonu :';
     public static final string ARGUMENT_ERROR_MSG  = 'List cannot be empty!';
 
+    /*
+    * @description method checks if there is enaught free slots for new Pojazd__c objects
+    */
     public static void freeSlotsCheck(List<Pojazd__c> inListOfNewCars){
         
          List<Salon__c> salons = new list<Salon__c>([SELECT Id, Liczba_miejsc__c FROM Salon__c]);
@@ -31,6 +34,9 @@ public class PojazdTriggerHandler {
         }
     }
 
+    /*
+    * @description creates new EnvironmentalImpact__c records for deleted vehicles
+    */
     public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){//Trigger.Old
         List<Telemetria__c> telemetryDataForDeletedCars = new List<Telemetria__c>([select Id from Telemetria__c where Pojazd__c IN :inListOfDeletedCars]);
         List<EnvironmentalImpact__c> newEnvironmentalImpactRecords = new List<EnvironmentalImpact__c>();
