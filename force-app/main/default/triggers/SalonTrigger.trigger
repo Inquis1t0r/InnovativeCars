@@ -5,5 +5,5 @@
  * @description Check Handlers for more docs
  */
 trigger SalonTrigger on Salon__c (after update) {
-
+    SalonTriggerHandler.createRenovationCase(Trigger.Old);
 }
