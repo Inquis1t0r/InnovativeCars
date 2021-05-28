@@ -14,7 +14,7 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         //CRON_EXP,
         //new DeleteTelemetryOldRecords());
 
-        global void execute(SchedulableContext SC) {
+        global void execute(SchedulableContext SC){
             String period = '';
 
             if(Test.isRunningTest()){
@@ -31,18 +31,18 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         }
 
         //Batchable
-        public DeleteTelemetryOldRecords(String query) {
+        public DeleteTelemetryOldRecords(String query){
             this.query = query;
         }
 
-        public Database.QueryLocator start(Database.BatchableContext bc) {
+        public Database.QueryLocator start(Database.BatchableContext bc){
             return Database.getQueryLocator(query);
         }
 
-        public void execute(Database.BatchableContext bc, List<sObject> scope) {
+        public void execute(Database.BatchableContext bc, List<sObject> scope){
             delete scope;
         }
 
-          public void finish(Database.BatchableContext bc) {
+          public void finish(Database.BatchableContext bc){
         }
 }
