@@ -7,6 +7,8 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
     public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI';
     public static final String CASE_ORIGIN = 'Web';
     public static final String CASE_SUBJECT = 'Renovation required for: ';
+    public static final String CASE_STATUS_CLOSED = 'Closed';
+    public static final String CASE_STATUS_FAILD = 'Faild';//Add status to Case status picklist
 
     public SalonTriggerService(List<Salon__c> listToCreateRenovationCase) {
         this.listToCreateRenovationCase = listToCreateRenovationCase;
@@ -36,14 +38,18 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
         req.setMethod(REQUEST_METHOD);
         req.setBody(JSON.serialize(renovationCases)); 
         HttpResponse resp = server.send(req);
-
+        String status = CASE_STATUS_FAILD;
         If(resp.getStatusCode() == 201)
         {
-            //System.debug(resp.getBody());
-            //System.debug('success');
+            status = CASE_STATUS_CLOSED;
         }else{
             System.debug(LoggingLevel.ERROR, CONN_ERR);
         }
+
+        for(Case currentCase : renovationCases){
+            currentCase.Status = status;
+        }
+        update renovationCases;
     }
 
 }
