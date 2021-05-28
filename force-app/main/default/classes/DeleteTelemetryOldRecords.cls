@@ -18,9 +18,9 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
             String period = '';
 
             if(Test.isRunningTest()){
-                period += 'LAST_N_DAYS:1 LIMIT 1';
+                period += 'LAST_N_DAYS:1';
             }else{
-                period += 'LAST_N_DAYS:30 LIMIT 1';
+                period += 'LAST_N_DAYS:30';
             }
 
             List<Telemetria__c> telemetryOldRecords = Database.query(query + period);
