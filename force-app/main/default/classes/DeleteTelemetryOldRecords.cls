@@ -25,7 +25,6 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
 
             List<Telemetria__c> telemetryOldRecords = Database.query(query + period);
             if(!telemetryOldRecords.isEmpty()){
-                //delete telemetryOldRecords;
                 Database.executeBatch(new DeleteTelemetryOldRecords(query + period));
             }
         }
