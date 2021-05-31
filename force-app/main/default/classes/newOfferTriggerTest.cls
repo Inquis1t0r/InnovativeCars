@@ -5,10 +5,8 @@
  * @description Perform tests for Offer
  */
 
-
-
 @isTest
-public with sharing class newOfferTriggerTest {
+public class newOfferTriggerTest {
 
      /**
      *
@@ -31,7 +29,7 @@ public with sharing class newOfferTriggerTest {
      * @description Test prevention of creating duplicate offers
      */
     @isTest
-    public static void shouldNotAllowNewOfferWhenAlreadyExist(){
+    public static void shouldNotAllowNewOfferWhenLimixExceeded(){
         //given
         List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateTestOffers(200, true);
         //when
@@ -39,7 +37,20 @@ public with sharing class newOfferTriggerTest {
         List<Database.SaveResult> resuts = Database.insert(newOffers, false);
         Test.stopTest();
         //then
-        System.assertEquals(0, resuts.size());
+        System.assertEquals(200, resuts.size());
+        //count stopped
+    }
+
+    @isTest
+    public static void shouldNotAllowNewOfferWhenAlreadyExist(){
+        //given
+        List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateDuplicateVehicleOffers(200);
+        //when
+        Test.startTest();
+        List<Database.SaveResult> resuts = Database.insert(newOffers, false);
+        Test.stopTest();
+        //then
+        System.assertEquals(200, resuts.size());
     }
 
 }
