@@ -99,7 +99,7 @@ public class OfferTriggerTest {
         //then
         expectedLimits = 1;
         actualLimits = Limits.getEmailInvocations();
-        System.assertEquals(expectedLimits, actualLimits, 'wrong limits after');
+        System.assertEquals(expectedLimits, actualLimits, 'Limits don\'t match');
     }
 
 }
