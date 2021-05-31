@@ -10,18 +10,24 @@ public class newOfferTriggerTest {
 
      /**
      *
-     * @description Test adding new offers
+     * @description Test adding single new offer
      */
     @isTest
     public static void shouldAddNewOffer(){
-        //given
-        List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateTestOffers(200, false);
-        //when
+        Account account = newOfferTriggerTestDataFactory.createTestAccount();
+        //insert account;
+        Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
+        insert salon;
+        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
+        insert vehicle;
+
+        Oferta__c testOffert = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
+
         Test.startTest();
-        List<Database.SaveResult> resuts = Database.insert(newOffers, true);
+        Database.SaveResult result = Database.insert(testOffert, false);
         Test.stopTest();
-        //then
-        System.assertEquals(200, resuts.size());
+
+        System.assert(result.isSuccess());
     }
 
      /**
@@ -29,28 +35,73 @@ public class newOfferTriggerTest {
      * @description Test prevention of creating duplicate offers
      */
     @isTest
-    public static void shouldNotAllowNewOfferWhenLimixExceeded(){
-        //given
-        List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateTestOffers(200, true);
-        //when
+    public static void shouldAddNewOfferWhenItsTheFirstOneForVehicle(){
+        Account account = newOfferTriggerTestDataFactory.createTestAccount();
+        //insert account;
+        Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
+        insert salon;
+        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
+        insert vehicle;
+
+        Oferta__c testOffert = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
+
         Test.startTest();
-        List<Database.SaveResult> resuts = Database.insert(newOffers, false);
+        Database.SaveResult result = Database.insert(testOffert, false);
         Test.stopTest();
-        //then
-        System.assertEquals(200, resuts.size());
-        //count stopped
+
+        System.assert(result.isSuccess());
     }
 
     @isTest
-    public static void shouldNotAllowNewOfferWhenAlreadyExist(){
+    public static void shouldNotAllowNewOfferWhenVehicleAlreadyAssigned(){
         //given
-        List<Oferta__c> newOffers = newOfferTriggerTestDataFactory.generateDuplicateVehicleOffers(200);
+        Account account = newOfferTriggerTestDataFactory.createTestAccount();
+        Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
+        insert salon;
+        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
+        insert vehicle;
+
+        Oferta__c offer = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
+        insert offer;
+
+        Oferta__c testOffert = newOfferTriggerTestDataFactory.createOffer(Constants.OFF2, salon, vehicle, true);
+
         //when
         Test.startTest();
-        List<Database.SaveResult> resuts = Database.insert(newOffers, false);
+        Database.SaveResult result = Database.insert(testOffert, false);
         Test.stopTest();
+
         //then
-        System.assertEquals(200, resuts.size());
+        System.assert(!result.isSuccess());
+        System.assert(result.getErrors().size() > 0);
+        System.assertEquals('Nie można utworzyć oferty ponieważ pojazd jest dostępny w ' + salon.Name,
+        result.getErrors()[0].getMessage());
+    }
+    
+    @isTest
+    public static void shouldSendEmailForNewOffers(){
+        //given
+        Integer expectedLimits = 0;
+        Integer actualLimits = 0;
+        Account account = newOfferTriggerTestDataFactory.createTestAccount();
+        Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
+        insert salon;
+        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
+        insert vehicle;
+
+        Oferta__c offer = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
+        insert offer;
+
+        //when
+        Test.startTest();
+        List<Id> offerIDs = new list<Id>();
+        offerIDs.add(offer.id);
+        Test.stopTest();
+
+        //then
+        expectedLimits = 1;
+        actualLimits = Limits.getEmailInvocations();
+        System.assertEquals(expectedLimits, actualLimits, 'wrong limits after');
     }
 
 }
