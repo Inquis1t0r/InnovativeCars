@@ -22,9 +22,15 @@ public class OfferTriggerHandler {
             throw new IllegalArgumentException(ARGUMENT_ERROR_MSG_LIST);
         }
 
+        List<Id> vehicleIDs = new List<Id>();
+        List<Id> salonIDs = new List<Id>();
+        List<Oferta__c> physicalOffers = new List<Oferta__c>();
+
         List<Oferta__c> physicalOffers = new List<Oferta__c>();
         for(Oferta__c offer : inListOfNewOffers){
             if(offer.Oferta_fizyczna__c == true){
+                vehicleIDs.add(offer.Pojazd__c);
+                salonIDs.add(offer.Salon__c);
                 physicalOffers.add(offer);
             }
         }
@@ -39,17 +45,17 @@ public class OfferTriggerHandler {
             }
         }
 
-        Map<Id, String> vehiclesWithPhysicalOffer = new Map<Id, String>();
+        Map<Id, String> vehiclesExistingInOffers = new Map<Id, String>();
         List<Oferta__c> currOffersWithPhysicalOffers = new List<Oferta__c>([SELECT Pojazd__c, Oferta__c.Salon__r.Name FROM Oferta__c where Oferta_fizyczna__c = true and Pojazd__c in :vehicles]);
         for(Oferta__c offer : currOffersWithPhysicalOffers){
-            vehiclesWithPhysicalOffer.put(offer.Pojazd__c, offer.Salon__r.Name);
+            vehiclesExistingInOffers.put(offer.Pojazd__c, offer.Salon__r.Name);
         }
 
 
         for(Oferta__c offer : physicalOffers){
-                if(vehiclesWithPhysicalOffer.containsKey(offer.Pojazd__c)){
-                    String SalonName = vehiclesWithPhysicalOffer.get(offer.Pojazd__c);
-                    offer.addError(ERR_MSG + SalonName);
+                if(vehiclesExistingInOffers.containsKey(offer.Pojazd__c)){
+                    String salonWhereVehicleExistName = vehiclesExistingInOffers.get(offer.Pojazd__c);
+                    offer.addError(ERR_MSG + salonWhereVehicleExistName);
                 }
         }
     }
