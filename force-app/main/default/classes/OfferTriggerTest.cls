@@ -40,7 +40,7 @@ public class OfferTriggerTest {
         //insert account;
         Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
         insert salon;
-        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
+        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
         insert vehicle;
 
         Oferta__c testOffert = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
@@ -58,7 +58,7 @@ public class OfferTriggerTest {
         Account account = newOfferTriggerTestDataFactory.createTestAccount();
         Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
         insert salon;
-        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
+        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
         insert vehicle;
 
         Oferta__c offer = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
@@ -86,7 +86,7 @@ public class OfferTriggerTest {
         Account account = newOfferTriggerTestDataFactory.createTestAccount();
         Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
         insert salon;
-        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
+        Pojazd__c vehicle = newOfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
         insert vehicle;
 
         Oferta__c offer = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);

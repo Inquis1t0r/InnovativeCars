@@ -17,7 +17,7 @@ public class OfferTriggerTestDataFactory {
         return newSalon;
     }
 
-    public static Pojazd__c createVehicle(String vehicleName, String serialNumber, Salon__c testSalon, Account account){
+    public static Pojazd__c createSingleVehicle(String vehicleName, String serialNumber, Salon__c testSalon, Account account){
         Pojazd__c vehicle = new Pojazd__c(
             Name = vehicleName, 
             Numer_seryjny__c = serialNumber, 
