@@ -41,9 +41,6 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         }
 
         public void execute(Database.BatchableContext bc, List<sObject> scope){
-            if(scope.size() == 0 || scope == null){
-                finish();
-            }
             delete scope;
         }
 
