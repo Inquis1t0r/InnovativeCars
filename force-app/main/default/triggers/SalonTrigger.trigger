@@ -5,7 +5,10 @@
  * @description Check Handlers for more docs
  */
 trigger SalonTrigger on Salon__c (after update, after delete) {
-    SalonTriggerHandler.createRenovationCase(Trigger.Old);
+
+    if(Trigger.isUpdate){
+        SalonTriggerHandler.createRenovationCase(Trigger.Old);
+    }
 
     if(Trigger.isDelete){
         SalonTriggerHandler.sendVehiclesToWarehouse(Trigger.Old);
