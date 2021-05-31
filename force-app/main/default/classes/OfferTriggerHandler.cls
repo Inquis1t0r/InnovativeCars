@@ -26,7 +26,6 @@ public class OfferTriggerHandler {
         List<Id> salonIDs = new List<Id>();
         List<Oferta__c> physicalOffers = new List<Oferta__c>();
 
-        List<Oferta__c> physicalOffers = new List<Oferta__c>();
         for(Oferta__c offer : inListOfNewOffers){
             if(offer.Oferta_fizyczna__c == true){
                 vehicleIDs.add(offer.Pojazd__c);

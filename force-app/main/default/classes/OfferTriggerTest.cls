@@ -6,7 +6,7 @@
  */
 
 @isTest
-public class newOfferTriggerTest {
+public class OfferTriggerTest {
 
      /**
      *
