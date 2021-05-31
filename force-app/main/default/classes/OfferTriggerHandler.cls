@@ -78,7 +78,12 @@ public class OfferTriggerHandler {
         Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {message};
         Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
         
-        messaging.sendEmail(new Messaging.SingleEmailMessage[] { message });
+        try{
+            messaging.sendEmail(new Messaging.SingleEmailMessage[] { message });
+        } catch(Exception e){
+            System.debug(LoggingLevel.ERROR,'Error occured during email sending: ' + e.getMessage());
+        }
+        
         
     }
 
