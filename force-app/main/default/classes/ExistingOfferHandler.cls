@@ -23,27 +23,29 @@ public class ExistingOfferHandler {
 
         List<Id> vehicleIDs = new List<Id>();
         List<Id> salonIDs = new List<Id>();
+        List<Oferta__c> physicalOffers = new List<Oferta__c>();
         
         for(Oferta__c offer : inListOfNewOffers){
             if(offer.Oferta_fizyczna__c = true){
                 vehicleIDs.add(offer.Pojazd__c);
                 salonIDs.add(offer.Salon__c);
+                physicalOffers.add(offer);
             }
         }
 
+        Map<Id, String> vehiclesExistingInOffers = new Map<Id, String>();
+        for(Oferta__c offer: [SELECT Pojazd__c, Oferta__c.Salon__r.Name FROM Oferta__c WHERE Pojazd__c in :vehicleIDs]){
+            vehiclesExistingInOffers.put(offer.Pojazd__c, offer.Salon__r.Name);
+        }
         
-        List<Oferta__c> existingRecords = [select Pojazd__c, Salon__c, Salon__r.Name from Oferta__c where Oferta_fizyczna__c = true and Pojazd__c IN :vehicleIDs];
-        
-        for(Oferta__c newOff:inListOfNewOffers)
-        {
-            for(Oferta__c oldOff:existingRecords)
-            {
-                if(oldOff.Pojazd__c == newOff.Pojazd__c)
-                {
-                    newOff.adderror(ERR_MSG + oldOff.Salon__r.Name);
-                }
+        for(Oferta__c offer : physicalOffers){
+            if(vehiclesExistingInOffers.containsKey(offer.Pojazd__c)){
+                String salonWhereVehicleExistName = vehiclesExistingInOffers.get(offer.Pojazd__c);
+                offer.addError(ERR_MSG + salonWhereVehicleExistName);
             }
         }
+
+
     }
 
     
