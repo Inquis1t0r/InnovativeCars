@@ -30,7 +30,7 @@ public class OfferTriggerTestDataFactory {
         return vehicle;
     }
 
-    public static Oferta__c createOffer(String name, Salon__c salon, Pojazd__c vehicle, Boolean isPhysical){
+    public static Oferta__c createSingleOffer(String name, Salon__c salon, Pojazd__c vehicle, Boolean isPhysical){
         Oferta__c offer = new Oferta__c(
             Name = name,
             Salon__c = salon.Id,

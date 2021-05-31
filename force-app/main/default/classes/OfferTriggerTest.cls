@@ -15,7 +15,6 @@ public class OfferTriggerTest {
     @isTest
     public static void shouldAddNewOffer(){
         Account account = newOfferTriggerTestDataFactory.createTestAccount();
-        //insert account;
         Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
         insert salon;
         Pojazd__c vehicle = newOfferTriggerTestDataFactory.createVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
@@ -37,13 +36,12 @@ public class OfferTriggerTest {
     @isTest
     public static void shouldAddNewOfferWhenItsTheFirstOneForVehicle(){
         Account account = newOfferTriggerTestDataFactory.createTestAccount();
-        //insert account;
         Salon__C salon = newOfferTriggerTestDataFactory.createTestSalon(account, 1);
         insert salon;
         Pojazd__c vehicle = newOfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
         insert vehicle;
 
-        Oferta__c testOffert = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
+        Oferta__c testOffert = newOfferTriggerTestDataFactory.createSingleOffer(Constants.OFF1, salon, vehicle, true);
 
         Test.startTest();
         Database.SaveResult result = Database.insert(testOffert, false);
@@ -61,10 +59,10 @@ public class OfferTriggerTest {
         Pojazd__c vehicle = newOfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
         insert vehicle;
 
-        Oferta__c offer = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
+        Oferta__c offer = newOfferTriggerTestDataFactory.createSingleOffer(Constants.OFF1, salon, vehicle, true);
         insert offer;
 
-        Oferta__c testOffert = newOfferTriggerTestDataFactory.createOffer(Constants.OFF2, salon, vehicle, true);
+        Oferta__c testOffert = newOfferTriggerTestDataFactory.createSingleOffer(Constants.OFF2, salon, vehicle, true);
 
         //when
         Test.startTest();
@@ -89,7 +87,7 @@ public class OfferTriggerTest {
         Pojazd__c vehicle = newOfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleName, Constants.testVehicleSN, salon, account);
         insert vehicle;
 
-        Oferta__c offer = newOfferTriggerTestDataFactory.createOffer(Constants.OFF1, salon, vehicle, true);
+        Oferta__c offer = newOfferTriggerTestDataFactory.createSingleOffer(Constants.OFF1, salon, vehicle, true);
         insert offer;
 
         //when
