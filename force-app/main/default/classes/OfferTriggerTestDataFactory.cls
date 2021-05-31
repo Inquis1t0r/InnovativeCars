@@ -4,7 +4,7 @@
  * @date  24.05.2021
  * @description generates data for testing purposes 
  */
-public class newOfferTriggerTestDataFactory {
+public class OfferTriggerTestDataFactory {
 
     public static Account createTestAccount(){
         Account account = new Account(Name = 'Car dealer for testing');
