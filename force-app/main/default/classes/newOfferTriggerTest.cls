@@ -23,7 +23,7 @@ public with sharing class newOfferTriggerTest {
         List<Database.SaveResult> resuts = Database.insert(newOffers, true);
         Test.stopTest();
         //then
-        System.assertEquals(201, resuts.size());
+        System.assertEquals(200, resuts.size());
     }
 
      /**
@@ -39,7 +39,7 @@ public with sharing class newOfferTriggerTest {
         List<Database.SaveResult> resuts = Database.insert(newOffers, false);
         Test.stopTest();
         //then
-        System.assertEquals(201, resuts.size());
+        System.assertEquals(200, resuts.size());
     }
 
 }

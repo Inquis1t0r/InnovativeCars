@@ -20,8 +20,19 @@ public class ExistingOfferHandler {
         if(inListOfNewOffers.isEmpty() || inListOfNewOffers == null){
             throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
         }
+
+        List<Id> vehicleIDs = new List<Id>();
+        List<Id> salonIDs = new List<Id>();
         
-        List<Oferta__c> existingRecords = [select Pojazd__c, Salon__c, Salon__r.Name from Oferta__c where Oferta_fizyczna__c = true and Pojazd__c IN :inListOfNewOffers];
+        for(Oferta__c offer : inListOfNewOffers){
+            if(offer.Oferta_fizyczna__c = true){
+                vehicleIDs.add(offer.Pojazd__c);
+                salonIDs.add(offer.Salon__c);
+            }
+        }
+
+        
+        List<Oferta__c> existingRecords = [select Pojazd__c, Salon__c, Salon__r.Name from Oferta__c where Oferta_fizyczna__c = true and Pojazd__c IN :vehicleIDs];
         
         for(Oferta__c newOff:inListOfNewOffers)
         {
