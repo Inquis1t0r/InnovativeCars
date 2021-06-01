@@ -9,7 +9,7 @@ global class scheduledAccountAssignment implements Schedulable {
     global void execute(SchedulableContext SC) {
        List<Pojazd__c> vehiclesToUpdate = new List<Pojazd__c>([select id from Pojazd__c where accountNotConnected__c = true]);
        for(Pojazd__c vehicle : vehiclesToUpdate){
-        vehicle.Account__c = salon__r.account__c;
+        vehicle.Account__c = vehicle.Salon__r.Account__c;
        }
      }
 }
