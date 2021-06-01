@@ -30,12 +30,12 @@ public class SalonTriggerHandler {
     /** 
     * @description Changes location of vehicles from deleted location, to designated warehouse
     **/
-    public static void sendVehiclesToWarehouse(List<Salon__c> inDeletedSalons){
-        if(inDeletedSalons == null || inDeletedSalons.isEmpty()){
+    public static void sendVehiclesToWarehouse(List<Salon__c> inClosedSalons){
+        if(inClosedSalons == null || inClosedSalons.isEmpty()){
             throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
         }
 
-        for(Salon__c deletedSalon : inDeletedSalons){
+        for(Salon__c deletedSalon : inClosedSalons){
             List <Oferta__c> vehiclesToMove = new List<Oferta__c>([select Pojazd__c, Salon__c from Oferta__c where Oferta_fizyczna__c = true AND Salon__c IN :inDeletedSalons]);
             if(vehiclesToMove.size() > 0){
                 for(Oferta__c vehicle : vehiclesToMove){
