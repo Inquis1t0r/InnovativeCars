@@ -1,6 +1,16 @@
+/**
+ *
+ * @author  <piotr.kazimierski@accenture.com>
+ * @date  01.06.2021
+ * @description Test class for SalonTriggerHandler
+ */
+
 @isTest
 public class SalonTriggerHandlerTest {
 
+    /*
+    * @description Checkf if all vehicles from closed location are moved to warehouse
+    */
     @isTest
     public static void shouldMoveAllVehiclesFromClosedSalonToWarehouse(){
         //given
@@ -33,6 +43,9 @@ public class SalonTriggerHandlerTest {
     }
 
 
+    /*
+    * @description Checkf if change of salon status to closed leads to creation of renovation case
+    */
     @isTest
     public static void shouldCreateNewRenovationCase(){
         //given
