@@ -28,7 +28,7 @@ public class SalonTriggerHandler {
     }
 
     /** 
-    * @description Changes localisation of vehicles from deleted location, to designated warehouse
+    * @description Changes location of vehicles from deleted location, to designated warehouse
     **/
     public static void sendVehiclesToWarehouse(List<Salon__c> inDeletedSalons){
         if(inDeletedSalons == null || inDeletedSalons.isEmpty()){
