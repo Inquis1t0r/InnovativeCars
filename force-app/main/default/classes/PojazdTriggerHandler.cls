@@ -28,8 +28,10 @@ public class PojazdTriggerHandler {
         For(Pojazd__c poj : inListOfNewCars)
         {             
             Decimal salonSlots = maxSlots.get(poj.Salon__c);
-            if(salonSlots + 1 > salonSlots){ //TODO: Compare after adding inListOfNewCars size (- number of processed cars(?))
-               // poj.adderror(ERROR_MSG + salonSlots);
+            if(salonSlots > 0){
+                maxSlots.put(poj.Salon__c, salonSlots - 1);
+            }else{ 
+                poj.adderror(ERROR_MSG + salonSlots);
             }
         }
     }

@@ -12,12 +12,14 @@ public class Constants {
     public static final String testSalonStronaInternetowa = 'https://www.google.com';
     public static final String testSalonAddress = 'Ul. Testowa 14, 13-370 Testowice';
     public static final String testVehicleName = 'Test Vehicle';
+    public static final String testVehicleName2 = 'Test Vehicle2';
     public static final Decimal testVehiclePrice = 99;
     public static final String testVehicleBrand = 'Ford';
     public static final String testVehicleModel = 'Mustang';
     public static final String testVehiclePower = '450';
     public static final Decimal testVehicleCombustion = 11.5;
     public static final String testVehicleSN = '965212';
+    public static final String testVehicleSN2 = '56767';
     public static final String testVehicleGenre = 'sportowe';
     public static final String testVehicleStatus = 'nowy';
     public static final Account testAccount = PojazdTriggerTestDataFactory.addTestAccount();
