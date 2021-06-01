@@ -1,0 +1,49 @@
+/**
+ *
+ * @author  <piotr.kazimierski@accenture.com>
+ * @date  25.05.2021
+ * @description Execute method removes Telemetria__c records with createddate >= 30 days ago //1 Day for testing purposes
+ */
+global with sharing class DeleteTelemetryOldRecords implements Database.Batchable<sObject>, Schedulable{
+
+    private final String query = 'SELECT Id FROM Telemetria__c WHERE createddate = ';
+    private final String limitQuery = 'LIMIT 1';
+        //Schedulable
+        //Scheduler code example:
+        //public static String CRON_EXP = '0 0 0 28 5 ? 2022';
+        //String jobId = System.schedule('DeleteTelemetryOldRecords',
+        //CRON_EXP,
+        //new DeleteTelemetryOldRecords());
+
+        global void execute(SchedulableContext SC){
+            String period = '';
+
+            if(Test.isRunningTest()){
+                period += 'LAST_N_DAYS:1';
+            }else{
+                period += 'LAST_N_DAYS:30';
+            }
+
+            List<Telemetria__c> telemetryOldRecords = Database.query(query + period + limitQuery);
+            if(!telemetryOldRecords.isEmpty()){
+
+                Database.executeBatch(new DeleteTelemetryOldRecords(query + period));
+            }
+        }
+
+        //Batchable
+        public DeleteTelemetryOldRecords(String query){
+            this.query = query;
+        }
+
+        public Database.QueryLocator start(Database.BatchableContext bc){
+            return Database.getQueryLocator(query);
+        }
+
+        public void execute(Database.BatchableContext bc, List<sObject> scope){
+            delete scope;
+        }
+
+          public void finish(Database.BatchableContext bc){
+        }
+}
