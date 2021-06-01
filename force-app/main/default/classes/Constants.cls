@@ -6,7 +6,7 @@ public class Constants {
     //vehicle
     public static final String testAccountName = 'Test Account'; 
     public static final String testSalonName = 'Test Salon';
-    public static final String testSalonStatus = 'Otwarty';
+    public static final String testSalonStatus = 'Otwarty'; //testSalonStatusOpen
     public static final String testSalonTyp = 'samochody osobowe';
     public static final Integer testSalonCapacity = 9999;
     public static final String testSalonStronaInternetowa = 'https://www.google.com';
@@ -21,5 +21,12 @@ public class Constants {
     public static final String testVehicleGenre = 'sportowe';
     public static final String testVehicleStatus = 'nowy';
 
+    //salon
+    public static final String testSalonStatusClosed = 'Zamknięty';
+    public static final String testVehicleForSalon1Name = 'test1';
+    public static final String testVehicleForSalon2Name = 'test2';
+
+    public static final String testVehicleForSalon1SN = '6577';
+    public static final String testVehicleForSalon2SN = '76565';
     
 }

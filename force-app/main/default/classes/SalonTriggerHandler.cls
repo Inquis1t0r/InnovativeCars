@@ -35,8 +35,9 @@ public class SalonTriggerHandler {
             throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
         }
 
+        List <Oferta__c> vehiclesToMove = new List<Oferta__c>([select Pojazd__c, Salon__c from Oferta__c where Oferta_fizyczna__c = true AND Salon__c IN :inDeletedSalons]);
+
         for(Salon__c deletedSalon : inClosedSalons){
-            List <Oferta__c> vehiclesToMove = new List<Oferta__c>([select Pojazd__c, Salon__c from Oferta__c where Oferta_fizyczna__c = true AND Salon__c IN :inDeletedSalons]);
             if(vehiclesToMove.size() > 0){
                 for(Oferta__c vehicle : vehiclesToMove){
                     vehicle.Salon__c = WAREHOUSE_ID;

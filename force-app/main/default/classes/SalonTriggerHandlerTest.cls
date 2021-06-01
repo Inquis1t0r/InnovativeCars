@@ -1,8 +1,6 @@
 @isTest
 public class SalonTriggerHandlerTest {
 
-    //WAREHOUSE_ID
-
     @isTest
     public static void shouldMoveAllVehiclesFromClosedSalonToWarehouse(){
         //given
@@ -15,10 +13,10 @@ public class SalonTriggerHandlerTest {
         Salon__c salon = OfferTriggerTestDataFactory.createTestSalon(account, numberOfTestVehicles);
         insert salon;
 
-        Pojazd__c veh1 = OfferTriggerTestDataFactory.createSingleVehicle('test1', '6577', salon, account);
+        Pojazd__c veh1 = OfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleForSalon1Name, Constants.testVehicleForSalon1SN, salon, account);
         insert veh1;
 
-        Pojazd__c veh2 = OfferTriggerTestDataFactory.createSingleVehicle('test2', '76565', salon, account);
+        Pojazd__c veh2 = OfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleForSalon2Name, Constants.testVehicleForSalon2SN, salon, account);
         insert veh2;
 
         
@@ -27,7 +25,7 @@ public class SalonTriggerHandlerTest {
 
         //when
         Test.startTest();
-        salon.Status_salonu__c = 'Zamknięty'; //Extract to const
+        salon.Status_salonu__c = Constants.testSalonStatusClosed;
         Database.SaveResult results = Database.update(salon, false);
         Test.stopTest();
 
