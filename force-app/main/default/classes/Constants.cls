@@ -16,7 +16,7 @@ public class Constants {
     public static final String testVehicleBrand = 'Ford';
     public static final String testVehicleModel = 'Mustang';
     public static final String testVehiclePower = '450';
-    public static final String testVehicleCombustion = '11,5';
+    public static final Decimal testVehicleCombustion = 11.5;
     public static final String testVehicleSN = '965212';
     public static final String testVehicleGenre = 'sportowe';
     public static final String testVehicleStatus = 'nowy';

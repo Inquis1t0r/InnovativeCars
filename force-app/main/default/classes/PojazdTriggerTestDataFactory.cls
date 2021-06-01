@@ -8,6 +8,9 @@
 public class PojazdTriggerTestDataFactory {
 
     public static List<Pojazd__c> addTestVehicles(Integer numberOfTestRecords){
+        
+        Account acc = addTestAccount();
+        Salon__c salon = addTestSalon();
         List<Pojazd__c> testVehicles = new List<Pojazd__c>();
         for(Integer i = 0; i < numberOfTestRecords; i++){
             testVehicles.add(new Pojazd__c(
@@ -20,10 +23,11 @@ public class PojazdTriggerTestDataFactory {
                 Model__c = Constants.testVehicleModel,
                 Numer_seryjny__c = Constants.testVehicleSN + 1,
                 Rodzaj__c = Constants.testVehicleGenre,
-                Stan__c = Constants.testVehicleStatus
+                Stan__c = Constants.testVehicleStatus,
+                spalanie__c = Constants.testVehicleCombustion
             ));
         }
-        insert testVehicles;
+
         return testVehicles;
     }
 
@@ -34,7 +38,9 @@ public class PojazdTriggerTestDataFactory {
     }
 
     public static Salon__c addTestSalon(){
-        Salon__c testSalon = new Salon__c(Name = Constants.testSalonName, Liczba_miejsc__c = Constants.testSalonCapacity, Salon_adres__c = Constants.testSalonAddress, Status_salonu__c = Constants.testSalonStatus, Typ__c = Constants.testSalonTyp, Strona_internetowa__c = Constants.testSalonStronaInternetowa, Account__c = Constants.testAccount.Id);
+        Account acc = PojazdTriggerTestDataFactory.addTestAccount();
+
+        Salon__c testSalon = new Salon__c(Name = Constants.testSalonName, Liczba_miejsc__c = Constants.testSalonCapacity, Salon_adres__c = Constants.testSalonAddress, Status_salonu__c = Constants.testSalonStatus, Typ__c = Constants.testSalonTyp, Strona_internetowa__c = Constants.testSalonStronaInternetowa, Account__c = acc.Id);
         insert testSalon;
         return testSalon;
     }
@@ -42,6 +48,7 @@ public class PojazdTriggerTestDataFactory {
     public static void addTestPojazdEntitiesWithTelemetry(Integer numberOfTestRecords){
 
         List<Pojazd__c> testVehicles = addTestVehicles(numberOfTestRecords);
+
         List<EnvironmentalImpact__c> testTelemetryData = new List<EnvironmentalImpact__c>();
         for(Pojazd__c vehicle : testVehicles){
             testTelemetryData.add(new EnvironmentalImpact__c(
@@ -55,5 +62,6 @@ public class PojazdTriggerTestDataFactory {
                 wiek_pojazdu__c = String.valueOf(Constants.testVehicleBrand.length())
             ));
         }
+        insert testTelemetryData;
     }
 }
