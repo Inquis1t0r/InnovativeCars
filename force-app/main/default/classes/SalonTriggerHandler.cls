@@ -22,7 +22,6 @@ public class SalonTriggerHandler {
             listToCreateRenovationCase.add(salon);
         }
         if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
-            //TODO: Job schedule
             Id jobId = System.enqueueJob(new SalonTriggerService(listToCreateRenovationCase));
         }
         
@@ -37,12 +36,12 @@ public class SalonTriggerHandler {
         }
 
         for(Salon__c deletedSalon : inDeletedSalons){
-            List <Oferta__c> vehiclesToMove = new List<Oferta__c>([select Pojazd__c, Salon__c from Oferta__c where Oferta_fizyczna__c = true AND Salon__c IN :inDeletedSalons ]);
-            //TODO: Sprawdzanie salonu zamiast oferty
+            List <Oferta__c> vehiclesToMove = new List<Oferta__c>([select Pojazd__c, Salon__c from Oferta__c where Oferta_fizyczna__c = true AND Salon__c IN :inDeletedSalons]);
             if(vehiclesToMove.size() > 0){
                 for(Oferta__c vehicle : vehiclesToMove){
                     vehicle.Salon__c = WAREHOUSE_ID;
                 }
+                update vehiclesToMove;
             }
 
         }
