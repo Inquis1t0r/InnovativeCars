@@ -17,6 +17,11 @@ public class OfferTriggerTestDataFactory {
         return newSalon;
     }
 
+    public static Salon__c createTestSalon(Account account, Integer numberOfGeneratedOffers, String Status){
+        Salon__c newSalon = new Salon__c(Name = 'test Salon', Account__c = account.id, Liczba_miejsc__c = numberOfGeneratedOffers, Strona_internetowa__c = 'https://www.google.com/', Salon_adres__c = 'test adress', Status_salonu__c = status);
+        return newSalon;
+    }
+
     public static Pojazd__c createSingleVehicle(String vehicleName, String serialNumber, Salon__c testSalon, Account account){
         Pojazd__c vehicle = new Pojazd__c(
             Name = vehicleName, 

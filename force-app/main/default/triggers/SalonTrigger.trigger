@@ -5,10 +5,9 @@
  * @description Check Handlers for more docs
  */
 trigger SalonTrigger on Salon__c (after update) {
-
     if(Trigger.isUpdate){
         SalonTriggerHandler.sendVehiclesToWarehouse(Trigger.Old);
-        SalonTriggerHandler.createRenovationCase(Trigger.Old);
+        SalonTriggerHandler.createRenovationCase(Trigger.New);
     }
 
 }

@@ -19,10 +19,6 @@ public class SalonTriggerHandlerTest {
         Pojazd__c veh2 = OfferTriggerTestDataFactory.createSingleVehicle(Constants.testVehicleForSalon2Name, Constants.testVehicleForSalon2SN, salon, account);
         insert veh2;
 
-        
-
-
-
         //when
         Test.startTest();
         salon.Status_salonu__c = Constants.testSalonStatusClosed;
@@ -34,8 +30,27 @@ public class SalonTriggerHandlerTest {
         List<Pojazd__c> vehiclesInWarehouseAfterTest = new List<Pojazd__c>([select Id from Pojazd__c  where Salon__c = :warehouse]);
         System.assert(results.isSuccess());
         System.assertEquals(vehiclesCurrentlyInWarehouse.size() + numberOfTestVehicles, vehiclesInWarehouseAfterTest.size());
+    }
 
 
+    @isTest
+    public static void shouldCreateNewRenovationCase(){
+        //given
+        Integer numberOfTestVehicles = 1;
+        Account account = OfferTriggerTestDataFactory.createTestAccount();
+
+        Salon__c salon = OfferTriggerTestDataFactory.createTestSalon(account, numberOfTestVehicles, Constants.testSalonStatus);
+        insert salon;
+
+        //when
+        Test.startTest();
+        salon.Status_salonu__c = Constants.testSalonStatusClosed;
+        update salon;
+        Test.stopTest();
+
+        //then
+        List<Case> newCases = new List<Case>([SELECT id FROM Case where Salon__c = :salon.id]);
+        System.assertEquals(1, newCases.size());
 
     }
 }
