@@ -8,6 +8,9 @@
 @isTest
 public class PojazdTriggerTest {
 
+    /*
+    * @description Verifies that deleted vehicles leads to EnvironmentalImpact__c record creation
+    */
     @isTest
     public static void shouldAddEnvironmentalImpactRecordsWhenVehicleWithTelemetryDataDeleted(){
         //given
@@ -23,6 +26,9 @@ public class PojazdTriggerTest {
         System.assertEquals(envImpactRecords.size(), numberOfTestRecords);
     }
 
+    /*
+    * @description Verifies that vehicle cannot be added then there are no free slots in salon
+    */
     @isTest
     public static void shouldPreventAddingVehicleWhenThereIsNoFreeSlots(){ 
         
@@ -56,6 +62,9 @@ public class PojazdTriggerTest {
      }
     }
 
+    /*
+    * @description Verifies that vehicle can be added then there are free slots in salon
+    */
     @isTest
     public static void shouldAllowAddingVehicleWhereThereAreFreeSlots(){
         
