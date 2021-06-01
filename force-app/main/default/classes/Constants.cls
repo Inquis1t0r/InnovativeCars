@@ -1,4 +1,9 @@
-public with sharing class Constants {
+public class Constants {
+    //Offer
+    public static final String OFF1 = 'Test offer 1';
+    public static final String OFF2 = 'Test offer 2';
+
+    //vehicle
     public static final String testAccountName = 'Test Account'; 
     public static final String testSalonName = 'Test Salon';
     public static final String testSalonStatus = 'Otwarty';
