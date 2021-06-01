@@ -45,6 +45,5 @@ global with sharing class DeleteTelemetryOldRecords implements Database.Batchabl
         }
 
           public void finish(Database.BatchableContext bc){
-            //system.debug('Cleanup finished or no records found');
         }
 }
