@@ -69,8 +69,10 @@ public class PojazdTriggerHandler {
             warto__c = telemetryData[0].warto__c,
             wiek_pojazdu__c = telemetryData[0].wiek_pojazdu__c
             ));
+            delete telemetryData;
         }
+
         insert newEnvironmentalImpactRecords;
-        delete telemetryData;
+        
     }
 }
