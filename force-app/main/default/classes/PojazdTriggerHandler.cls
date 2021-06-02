@@ -47,8 +47,13 @@ public class PojazdTriggerHandler {
     * @return void
     * @description creates new EnvironmentalImpact__c records for deleted vehicles
     */
-    public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){//Trigger.Old
+    public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){
         List<Telemetria__c> telemetryDataForDeletedCars = new List<Telemetria__c>([select Id from Telemetria__c where Pojazd__c IN :inListOfDeletedCars]);
+        
+        if(telemetryDataForDeletedCars.isEmpty() || telemetryDataForDeletedCars == null){
+            throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
+        }
+
         List<EnvironmentalImpact__c> newEnvironmentalImpactRecords = new List<EnvironmentalImpact__c>();
 
         for(Pojazd__c vehicle : inListOfDeletedCars){
