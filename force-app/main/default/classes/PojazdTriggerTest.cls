@@ -15,7 +15,7 @@ public class PojazdTriggerTest {
     public static void shouldAddEnvironmentalImpactRecordsWhenVehicleWithTelemetryDataDeleted(){
         //given
         Integer numberOfTestRecords = 200;
-        PojazdTriggerTestDataFactory.addTestPojazdEntitiesWithTelemetry(numberOfTestRecords);
+        //List<Pojazd__c> currentVehicles = PojazdTriggerTestDataFactory.addTestPojazdEntitiesWithTelemetry(numberOfTestRecords);
         List<Pojazd__c> currentVehicles = new List<Pojazd__c>([Select Id from Pojazd__c]);
         //when
         Test.startTest();
