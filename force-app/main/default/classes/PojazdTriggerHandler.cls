@@ -10,6 +10,10 @@ public class PojazdTriggerHandler {
     public static final string ARGUMENT_ERROR_MSG  = 'List cannot be empty!';
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  24.05.2021
+    * @params List<Pojazd__c> (new vehicles) / Trigger.New
+    * @return void
     * @description method checks if there is enaught free slots for new Pojazd__c objects
     */
     public static void freeSlotsCheck(List<Pojazd__c> inListOfNewCars){
@@ -37,6 +41,10 @@ public class PojazdTriggerHandler {
     }
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  24.05.2021
+    * @params List<Pojazd__c> (deleted vehicles) / Trigger.Old
+    * @return void
     * @description creates new EnvironmentalImpact__c records for deleted vehicles
     */
     public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){//Trigger.Old
