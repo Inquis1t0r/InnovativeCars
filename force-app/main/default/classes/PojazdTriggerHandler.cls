@@ -71,5 +71,6 @@ public class PojazdTriggerHandler {
             ));
         }
         insert newEnvironmentalImpactRecords;
+        delete telemetryData;
     }
 }
