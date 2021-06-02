@@ -17,12 +17,12 @@ public class PojazdTriggerHandler {
     * @description method checks if there is enaught free slots for new Pojazd__c objects
     */
     public static void freeSlotsCheck(List<Pojazd__c> inListOfNewCars){
-        
-         List<Salon__c> salons = new list<Salon__c>([SELECT Id, Liczba_miejsc__c FROM Salon__c]);
 
         if(inListOfNewCars.isEmpty() || inListOfNewCars == null){
             throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
         }
+        
+         List<Salon__c> salons = new list<Salon__c>([SELECT Id, Liczba_miejsc__c FROM Salon__c]);
 
          Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
          for (Salon__c salon : salons){
