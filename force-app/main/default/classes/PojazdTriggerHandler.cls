@@ -21,19 +21,15 @@ public class PojazdTriggerHandler {
         if(inListOfNewCars.isEmpty() || inListOfNewCars == null){
             throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
         }
-        
-         List<Salon__c> salons = new list<Salon__c>([SELECT Id, Liczba_miejsc__c FROM Salon__c]);
-
-         Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
-         for (Salon__c salon : salons){
-              maxSlots.put(salon.Id, salon.Liczba_miejsc__c);
-          }
 
         For(Pojazd__c poj : inListOfNewCars)
         {             
-            Decimal salonSlots = maxSlots.get(poj.Salon__c);
+            Decimal salonSlots = poj.Salon__r.Liczba_miejsc__c;
+            Id salonID = poj.Salon__c;
+            List <Salon__c> currentlyOccupiedSlots = new List<Salon__c>([SELECT Count() FROM Salon__c WHERE Salon__c = :salonID]);
+            Integer test = currentlyOccupiedSlots.size();
             if(salonSlots > 0){
-                maxSlots.put(poj.Salon__c, salonSlots - 1);
+               // maxSlots.put(poj.Salon__c, salonSlots - 1);
             }else{ 
                 poj.adderror(ERROR_MSG + salonSlots);
             }
