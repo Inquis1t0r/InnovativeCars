@@ -22,14 +22,24 @@ public class PojazdTriggerHandler {
             throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
         }
 
+        Set<Id> salonIds = new Set<Id>();
+        for (Pojazd__c vehicle : inListOfNewCars) {
+            salonIds.add(vehicle.Salon__c);
+        }
+
+        List<Salon__c> salonsInListOfNewCars = new List<Salon__c>([SELECT Id, Liczba_miejsc__c, Name FROM Salon__c WHERE id IN :salonIds]);
+        Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
+        for (Salon__c salon : salonsInListOfNewCars) {
+            String query = 'SELECT COUNT(Salon__c) FROM Pojazd__c GROUP BY Salon__r.id having Salon__r.id =' + salon.Id;
+            integer countOccupiedSlots = database.countQuery(query);
+            maxSlots.put(salon.Id, salon.Liczba_miejsc__c - countOccupiedSlots);
+        }
+
         For(Pojazd__c poj : inListOfNewCars)
         {             
-            Decimal salonSlots = poj.Salon__r.Liczba_miejsc__c;
-            Id salonID = poj.Salon__c;
-            List <Salon__c> currentlyOccupiedSlots = new List<Salon__c>([SELECT Count() FROM Salon__c WHERE Salon__c = :salonID]);
-            Integer test = currentlyOccupiedSlots.size();
+            Decimal salonSlots = maxSlots.get(poj.Salon__c);
             if(salonSlots > 0){
-               // maxSlots.put(poj.Salon__c, salonSlots - 1);
+                maxSlots.put(poj.Salon__c, salonSlots - 1);
             }else{ 
                 poj.adderror(ERROR_MSG + salonSlots);
             }
@@ -69,6 +79,5 @@ public class PojazdTriggerHandler {
         }
 
         insert newEnvironmentalImpactRecords;
-        
     }
 }
