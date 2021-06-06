@@ -9,7 +9,7 @@ public class SalonTriggerHandler {
 
 
     public static final String salonStatusClosed = 'Zamknięty';
-    public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI';
+    public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI'; //query ID for current account
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
 
     /** 
