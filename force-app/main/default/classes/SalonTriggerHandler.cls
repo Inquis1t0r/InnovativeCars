@@ -9,18 +9,24 @@ public class SalonTriggerHandler {
 
 
     public static final String salonStatusClosed = 'Zamknięty';
-    public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI'; //query ID for current account
+    public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI'; //query ID for current
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
 
     /** 
     * @description Creates list of Salon__c with closed status
     **/
-    public static void createRenovationCase(List<Salon__c> inSalonOld){
-        List<Salon__c> listToCreateRenovationCase = new List <Salon__c>();
-        for(Salon__c salon : inSalonOld){
-            if(salon.Status_salonu__c == salonStatusClosed)
-            listToCreateRenovationCase.add(salon);
+    public static void createRenovationCase(List<Salon__c> inSalonNew, Map<Id, Salon__c> inSalonOld){
+        if(inSalonNew == null || inSalonNew.isEmpty() || inSalonOld == null || inSalonOld.isEmpty()){
+            throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
         }
+
+        List<Salon__c> listToCreateRenovationCase = new List <Salon__c>();
+        for (Salon__c newSalon: inSalonNew) {
+            Salon__c oldSalon = inSalonOld.get(Status_salonu__c);
+            if(newSalon.Status_salonu__c == salonStatusClosed && oldSalon.Status_salonu__c != salonStatusClosed) {
+               listToCreateRenovationCase.add(salon);
+            }
+
         if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
             Id jobId = System.enqueueJob(new SalonTriggerService(listToCreateRenovationCase));
         }

@@ -7,7 +7,7 @@
 trigger SalonTrigger on Salon__c (after update) {
     if(Trigger.isUpdate){
         SalonTriggerHandler.sendVehiclesToWarehouse(Trigger.Old);
-        SalonTriggerHandler.createRenovationCase(Trigger.New);
+        SalonTriggerHandler.createRenovationCase(Trigger.New, Trigger.oldMap);
     }
 
 }
