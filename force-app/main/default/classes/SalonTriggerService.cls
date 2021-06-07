@@ -25,6 +25,7 @@ public with sharing class SalonTriggerService implements Queueable, Database.All
         for(Case currentCase : renovationCases){
             caseIDs.add(currentCase.Id);
         }
+        checkRepairCrewAvaliability(caseIDs);
 
     }
     
