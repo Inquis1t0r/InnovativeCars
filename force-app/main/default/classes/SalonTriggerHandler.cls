@@ -24,7 +24,7 @@ public class SalonTriggerHandler {
         for (Salon__c newSalon: inSalonNew) {
             Salon__c oldSalon = inSalonOld.get(Status_salonu__c);
             if(newSalon.Status_salonu__c == salonStatusClosed && oldSalon.Status_salonu__c != salonStatusClosed) {
-               listToCreateRenovationCase.add(salon);
+               listToCreateRenovationCase.add(newSalon);
             }
         }
         if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
@@ -42,7 +42,7 @@ public class SalonTriggerHandler {
 
         List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>([SELECT Salon__c FROM Pojazd__c WHERE Salon__c IN :inClosedSalons]);
         List<Id> idAccountList = new List<Id>();
-        for(Salon__c currentSalon : inNewSalonlist){
+        for(Salon__c currentSalon : inClosedSalons){
             idAccountList.add(currentSalon.Account__c);
         }
 
@@ -60,7 +60,7 @@ public class SalonTriggerHandler {
             Salon__c existingWarehouse = existingWareHousesMap.get(deletedSalon.Account__c);
             if(vehiclesToMove.size() > 0){
                 for(Pojazd__c vehicle : vehiclesToMove){
-                    vehicle.Salon__c = existingWarehouse;
+                    vehicle.Salon__c = existingWarehouse.id;
                 }
                 update vehiclesToMove;
             }
@@ -69,7 +69,7 @@ public class SalonTriggerHandler {
 
     }
 
-    /**/
+    /**
     * @description Prevents adding new warehouse if one already exist for selected Account
     **/
     public static void preventMoreThenOneWarehousePerAccount(List<Salon__c> inNewSalonlist){
@@ -94,7 +94,7 @@ public class SalonTriggerHandler {
             if(iteratedSalon.isWarehouse__c == true){
                 Salon__c existingWarehouse = existingWareHousesMap.get(iteratedSalon.Account__c);
                 if(existingWarehouse == null){
-                    existingWareHousesMap.put(iteratedSalon.Account__c);
+                    existingWareHousesMap.put(iteratedSalon.Account__c, iteratedSalon);
                 }else{
                     iteratedSalon.addError(WAREHOUSE_ALREADY_EXIST_FOR_ACCOUNT);
                 }
