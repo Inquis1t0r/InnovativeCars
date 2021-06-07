@@ -40,14 +40,14 @@ public class SalonTriggerHandler {
             throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
         }
 
-        List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>([select Salon__c from Pojazd__c where Salon__c IN :inClosedSalons]);
+        List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>([SELECT Salon__c FROM Pojazd__c WHERE Salon__c IN :inClosedSalons]);
         List<Id> idAccountList = new List<Id>();
         for(Salon__c currentSalon : inNewSalonlist){
             idAccountList.add(currentSalon.Account__c);
         }
 
 
-        List<Salon__c> currentWarehouses = new List<Salon__c>([select id, name, Account__c from salon__C where isWarehouse__c = true AND Account__c in :idAccountList]);
+        List<Salon__c> currentWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
         Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
 
         for(Salon__c currentWarehouse : currentWarehouses){
@@ -70,7 +70,7 @@ public class SalonTriggerHandler {
     }
 
     /**/
-    *
+    * @description Prevents adding new warehouse if one already exist for selected Account
     **/
     public static void preventMoreThenOneWarehousePerAccount(List<Salon__c> inNewSalonlist){
         if(inNewSalonlist == null || inNewSalonlist.isEmpty()){
@@ -83,7 +83,7 @@ public class SalonTriggerHandler {
         }
 
 
-        List<Salon__c> currentWarehouses = new List<Salon__c>([select id, name, Account__c from salon__C where isWarehouse__c = true AND Account__c in :idAccountList]);
+        List<Salon__c> currentWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
         Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
 
         for(Salon__c currentWarehouse : currentWarehouses){
