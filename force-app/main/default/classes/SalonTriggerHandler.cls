@@ -9,7 +9,6 @@ public class SalonTriggerHandler {
 
 
     public static final String salonStatusClosed = 'Zamknięty';
-    public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI'; //query ID for current
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
     public static final string WAREHOUSE_ALREADY_EXIST_FOR_ACCOUNT = 'Warehouse already exist for this Account';
 
