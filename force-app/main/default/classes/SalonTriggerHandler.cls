@@ -41,12 +41,27 @@ public class SalonTriggerHandler {
             throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
         }
 
-        List <Oferta__c> vehiclesToMove = new List<Oferta__c>([select Pojazd__c, Salon__c from Oferta__c where Oferta_fizyczna__c = true AND Salon__c IN :inClosedSalons]);
+        List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>([select Salon__c from Pojazd__c where Salon__c IN :inClosedSalons]);
+        List<Id> idAccountList = new List<Id>();
+        for(Salon__c currentSalon : inNewSalonlist){
+            idAccountList.add(currentSalon.Account__c);
+        }
+
+
+        List<Salon__c> currentWarehouses = new List<Salon__c>([select id, name, Account__c from salon__C where isWarehouse__c = true AND Account__c in :idAccountList]);
+        Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
+
+        for(Salon__c currentWarehouse : currentWarehouses){
+            existingWareHousesMap.put(currentWarehouse.Account__c, currentWarehouse);
+        }
+        
+
 
         for(Salon__c deletedSalon : inClosedSalons){
+            Salon__c existingWarehouse = existingWareHousesMap.get(deletedSalon.Account__c);
             if(vehiclesToMove.size() > 0){
-                for(Oferta__c vehicle : vehiclesToMove){
-                    vehicle.Salon__c = WAREHOUSE_ID;
+                for(Pojazd__c vehicle : vehiclesToMove){
+                    vehicle.Salon__c = existingWarehouse;
                 }
                 update vehiclesToMove;
             }
