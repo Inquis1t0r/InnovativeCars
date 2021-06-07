@@ -22,11 +22,12 @@ public class SalonTriggerHandler {
 
         List<Salon__c> listToCreateRenovationCase = new List <Salon__c>();
         for (Salon__c newSalon: inSalonNew) {
-            Salon__c oldSalon = inSalonOld.get(Status_salonu__c);
+            Salon__c oldSalon = inSalonOld.get(newSalon.id);
             if(newSalon.Status_salonu__c == salonStatusClosed && oldSalon.Status_salonu__c != salonStatusClosed) {
                listToCreateRenovationCase.add(newSalon);
             }
         }
+
         if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
             Id jobId = System.enqueueJob(new SalonTriggerService(listToCreateRenovationCase));
         }
