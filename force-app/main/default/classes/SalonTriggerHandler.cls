@@ -11,6 +11,7 @@ public class SalonTriggerHandler {
     public static final String salonStatusClosed = 'Zamknięty';
     public static final String WAREHOUSE_ID = 'a0009000008q5ApAAI'; //query ID for current
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
+    public static final string WAREHOUSE_ALREADY_EXIST_FOR_ACCOUNT = 'Warehouse already exist for this Account';
 
     /** 
     * @description Creates renovation cases for Salon__c that changes status to closed 
@@ -50,6 +51,40 @@ public class SalonTriggerHandler {
                 update vehiclesToMove;
             }
 
+        }
+
+    }
+
+    /**/
+    *
+    **/
+    public static void preventMoreThenOneWarehousePerAccount(List<Salon__c> inNewSalonlist){
+        if(inNewSalonlist == null || inNewSalonlist.isEmpty()){
+            throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
+        }
+
+        List<Id> idAccountList = new List<Id>();
+        for(Salon__c currentSalon : inNewSalonlist){
+            idAccountList.add(currentSalon.Account__c);
+        }
+
+
+        List<Salon__c> currentWarehouses = new List<Salon__c>([select id, name, Account__c from salon__C where isWarehouse__c = true AND Account__c in :idAccountList]);
+        Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
+
+        for(Salon__c currentWarehouse : currentWarehouses){
+            existingWareHousesMap.put(currentWarehouse.Account__c, currentWarehouse);
+        }
+
+        for(Salon__c iteratedSalon : inNewSalonlist){
+            if(iteratedSalon.isWarehouse__c == true){
+                Salon__c existingWarehouse = existingWareHousesMap.get(iteratedSalon.Account__c);
+                if(existingWarehouse == null){
+                    existingWareHousesMap.put(iteratedSalon.Account__c);
+                }else{
+                    iteratedSalon.addError(WAREHOUSE_ALREADY_EXIST_FOR_ACCOUNT);
+                }
+            }
         }
 
     }
