@@ -13,7 +13,7 @@ public class SalonTriggerHandler {
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
 
     /** 
-    * @description Creates list of Salon__c with closed status
+    * @description Creates renovation cases for Salon__c that changes status to closed 
     **/
     public static void createRenovationCase(List<Salon__c> inSalonNew, Map<Id, Salon__c> inSalonOld){
         if(inSalonNew == null || inSalonNew.isEmpty() || inSalonOld == null || inSalonOld.isEmpty()){
@@ -26,11 +26,10 @@ public class SalonTriggerHandler {
             if(newSalon.Status_salonu__c == salonStatusClosed && oldSalon.Status_salonu__c != salonStatusClosed) {
                listToCreateRenovationCase.add(salon);
             }
-
+        }
         if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
             Id jobId = System.enqueueJob(new SalonTriggerService(listToCreateRenovationCase));
         }
-        
     }
 
     /** 
@@ -55,3 +54,4 @@ public class SalonTriggerHandler {
 
     }
 }
+
