@@ -10,6 +10,7 @@ public class SalonTriggerHandler {
 
     public static final String salonStatusClosed = 'Zamknięty';
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
+    public static final string WAREHOUSE_MISSING_MSG = 'There is no warehouse for this account!';
     public static final string WAREHOUSE_ALREADY_EXIST_FOR_ACCOUNT = 'Warehouse already exist for this Account';
 
     /** 
@@ -43,9 +44,17 @@ public class SalonTriggerHandler {
     * @params Trigger.Old
     * @return void
     **/
-    public static void sendVehiclesToWarehouse(List<Salon__c> inClosedSalons){
-        if(inClosedSalons == null || inClosedSalons.isEmpty()){
+    public static void sendVehiclesToWarehouse(List<Salon__c> inUpdatedSalons){
+        if(inUpdatedSalons == null || inUpdatedSalons.isEmpty()){
             throw new IllegalArgumentException(ARGUMENT_ERR_MSG);
+        }
+
+        List<Salon__c> inClosedSalons = new List<Salon__c>();
+
+        for(Salon__c currSalon :inUpdatedSalons){
+            if(currSalon.Status_salonu__c == salonStatusClosed){
+                inClosedSalons.add(currSalon);
+            }
         }
 
         List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>([SELECT Salon__c FROM Pojazd__c WHERE Salon__c IN :inClosedSalons]);
@@ -57,6 +66,9 @@ public class SalonTriggerHandler {
 
         List<Salon__c> currentWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
         Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
+        if(existingWareHousesMap == null || existingWareHousesMap.isEmpty()){
+            throw new IllegalArgumentException(WAREHOUSE_MISSING_MSG);
+        }
 
         for(Salon__c currentWarehouse : currentWarehouses){
             existingWareHousesMap.put(currentWarehouse.Account__c, currentWarehouse);
@@ -70,9 +82,8 @@ public class SalonTriggerHandler {
                 for(Pojazd__c vehicle : vehiclesToMove){
                     vehicle.Salon__c = existingWarehouse.id;
                 }
-                update vehiclesToMove;
             }
-
+            update vehiclesToMove;
         }
 
     }
