@@ -80,12 +80,14 @@ public class SalonTriggerHandler {
             Salon__c existingWarehouse = existingWareHousesMap.get(deletedSalon.Account__c);
             if(vehiclesToMove.size() > 0){
                 for(Pojazd__c vehicle : vehiclesToMove){
-                    vehicle.Salon__c = existingWarehouse.id;
+                    if(vehicle.Account__c == deletedSalon.Account__c){
+                        vehicle.Salon__c = existingWarehouse.id;
+                    }
+                    
                 }
-            }
-            update vehiclesToMove;
+            } 
         }
-
+        update vehiclesToMove;
     }
 
     /**
