@@ -13,6 +13,10 @@ public class SalonTriggerHandler {
     public static final string WAREHOUSE_ALREADY_EXIST_FOR_ACCOUNT = 'Warehouse already exist for this Account';
 
     /** 
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  25.05.2021
+    * @params Trigger.New, Trigger.oldMap
+    * @return void
     * @description Creates renovation cases for Salon__c that changes status to closed 
     **/
     public static void createRenovationCase(List<Salon__c> inSalonNew, Map<Id, Salon__c> inSalonOld){
@@ -35,6 +39,9 @@ public class SalonTriggerHandler {
 
     /** 
     * @description Changes location of vehicles from deleted location, to designated warehouse
+    * @date  25.05.2021
+    * @params Trigger.Old
+    * @return void
     **/
     public static void sendVehiclesToWarehouse(List<Salon__c> inClosedSalons){
         if(inClosedSalons == null || inClosedSalons.isEmpty()){
@@ -72,6 +79,9 @@ public class SalonTriggerHandler {
 
     /**
     * @description Prevents adding new warehouse if one already exist for selected Account
+    * @date  25.05.2021
+    * @params Trigger.New
+    * @return void
     **/
     public static void preventMoreThenOneWarehousePerAccount(List<Salon__c> inNewSalonlist){
         if(inNewSalonlist == null || inNewSalonlist.isEmpty()){
