@@ -12,7 +12,7 @@ global with sharing class VehicleWrapper {
     public String Model__c;
     public String Numer_seryjny__c;
 
-    public static VehicleWrapper parse(String json) {
+    global static VehicleWrapper parse(String json) {
         return (VehicleWrapper) System.JSON.deserialize(json, VehicleWrapper.class);
     }
 }

@@ -8,7 +8,7 @@
 
  @RestResource(urlMapping='/v1/getAccounts/')
 
-public with sharing class GetAccounts {
+global with sharing class GetAccounts {
 
     @HttpGet
     global static List<Account> getAccounts(){
