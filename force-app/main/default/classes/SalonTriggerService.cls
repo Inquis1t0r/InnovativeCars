@@ -1,3 +1,10 @@
+/**
+ *
+ * @author  <piotr.kazimierski@accenture.com>
+ * @date  24.05.2021
+ * @description Service class for SalonTrigger callouts 
+ */
+
 public with sharing class SalonTriggerService implements Queueable, Database.AllowsCallouts{
     public final List<Salon__c> listToCreateRenovationCase;
     public static final string ENDPOINT = 'https://jsonplaceholder.typicode.com/posts';
