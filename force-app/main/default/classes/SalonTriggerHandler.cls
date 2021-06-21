@@ -7,7 +7,6 @@
 
 public class SalonTriggerHandler {
 
-
     public static final String SALON_STATUS_CLOSED = 'Zamknięty';
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
     public static final string WAREHOUSE_MISSING_MSG = 'There is no warehouse for this account!';

@@ -15,7 +15,10 @@ public class SalonTriggerHandlerTest {
     public static void shouldMoveAllVehiclesFromClosedSalonToWarehouse(){
         //given
         Integer numberOfTestVehicles = 2;
-        Id warehouse = SalonTriggerHandler.WAREHOUSE_ID;
+        Account testAccount = SalonTriggerHandlerTestDataFactory.createTestAccount();
+        Salon__c testWarehouse = SalonTriggerHandlerTestDataFactory.createTestWarehouseSalon(testAccount, numberOfTestVehicles);
+
+        Id warehouse = testWarehouse.Id;
 
         List<Pojazd__c> vehiclesCurrentlyInWarehouse = new List<Pojazd__c>([select Id from Pojazd__c  where Salon__c = :warehouse]);
         Account account = OfferTriggerTestDataFactory.createTestAccount();
