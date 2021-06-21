@@ -4,6 +4,8 @@
  * @date  01.06.2021
  * @description Data factory SalonTriggerHandler
  */
+
+@isTest
 public with sharing class SalonTriggerHandlerTestDataFactory {
 
     /*

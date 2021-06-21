@@ -39,7 +39,6 @@ public class SalonTriggerHandlerTest {
         Test.stopTest();
 
         //then
-        List<Pojazd__c> vehiclesInNewSalon = new List<Pojazd__c>([SELECT Id FROM Pojazd__c WHERE Salon__c = :salon.Id]);
         List<Pojazd__c> vehiclesInWarehouseAfterTest = new List<Pojazd__c>([select Id from Pojazd__c  where Salon__c = :warehouse]);
         System.assert(results.isSuccess());
         System.assertEquals(vehiclesCurrentlyInWarehouse.size() + numberOfTestVehicles, vehiclesInWarehouseAfterTest.size());
