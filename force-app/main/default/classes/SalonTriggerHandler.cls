@@ -57,7 +57,12 @@ public class SalonTriggerHandler {
             }
         }
 
-        List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>([SELECT Salon__c FROM Pojazd__c WHERE Salon__c IN :inClosedSalons]);
+        //List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>([SELECT Salon__c FROM Pojazd__c WHERE Salon__c IN :inClosedSalons]);
+        List <Pojazd__c> vehiclesToMove = new List<Pojazd__c>();
+        for(Salon__c salon : inClosedSalons){
+            vehiclesToMove.add(salon.Pojazd__c);
+        }
+
         List<Id> idAccountList = new List<Id>();
         for(Salon__c currentSalon : inClosedSalons){
             idAccountList.add(currentSalon.Account__c);
