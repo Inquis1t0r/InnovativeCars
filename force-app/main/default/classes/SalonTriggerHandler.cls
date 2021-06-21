@@ -33,7 +33,7 @@ public class SalonTriggerHandler {
             }
         }
 
-        if(listToCreateRenovationCase.size() > 0 && listToCreateRenovationCase != null){
+        if(listToCreateRenovationCase.size() > 0){
             Id jobId = System.enqueueJob(new SalonTriggerService(listToCreateRenovationCase));
         }
     }
