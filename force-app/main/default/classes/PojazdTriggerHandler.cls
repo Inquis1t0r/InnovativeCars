@@ -26,8 +26,12 @@ public class PojazdTriggerHandler {
         for (Pojazd__c vehicle : inListOfNewCars) {
             salonIds.add(vehicle.Salon__c);
         }
-
-        List<Salon__c> salonsInListOfNewCars = new List<Salon__c>([SELECT Id, Liczba_miejsc__c, Name FROM Salon__c WHERE id IN :salonIds]);
+        
+        List<Salon__c> salonsInListOfNewCars = new List<Salon__c>();
+        for(pojazd__c currVehicle : inListOfNewCars){
+            salonsInListOfNewCars.add(currVehicle.Salon__c);
+        }
+        
         Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
         for (Salon__c salon : salonsInListOfNewCars) {
             String query = 'SELECT COUNT(Salon__c) FROM Pojazd__c GROUP BY Salon__r.id having Salon__r.id =' + salon.Id;
