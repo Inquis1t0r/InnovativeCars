@@ -8,7 +8,7 @@
 public class SalonTriggerHandler {
 
 
-    public static final String salonStatusClosed = 'Zamknięty';
+    public static final String SALON_STATUS_CLOSED = 'Zamknięty';
     public static final string ARGUMENT_ERR_MSG = 'List cannot be empty!';
     public static final string WAREHOUSE_MISSING_MSG = 'There is no warehouse for this account!';
     public static final string WAREHOUSE_ALREADY_EXIST_FOR_ACCOUNT = 'Warehouse already exist for this Account';
@@ -28,7 +28,7 @@ public class SalonTriggerHandler {
         List<Salon__c> listToCreateRenovationCase = new List <Salon__c>();
         for (Salon__c newSalon: inSalonNew) {
             Salon__c oldSalon = inSalonOld.get(newSalon.id);
-            if(newSalon.Status_salonu__c == salonStatusClosed && oldSalon.Status_salonu__c != salonStatusClosed) {
+            if(newSalon.Status_salonu__c == SALON_STATUS_CLOSED && oldSalon.Status_salonu__c != SALON_STATUS_CLOSED) {
                listToCreateRenovationCase.add(newSalon);
             }
         }
@@ -52,7 +52,7 @@ public class SalonTriggerHandler {
         List<Salon__c> inClosedSalons = new List<Salon__c>();
 
         for(Salon__c currSalon :inUpdatedSalons){
-            if(currSalon.Status_salonu__c == salonStatusClosed){
+            if(currSalon.Status_salonu__c == SALON_STATUS_CLOSED){
                 inClosedSalons.add(currSalon);
             }
         }
