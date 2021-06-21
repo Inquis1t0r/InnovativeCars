@@ -8,6 +8,10 @@
 @isTest
 public class PojazdTriggerTestDataFactory {
 
+    /*
+    * @param numberOfTestRecords -> number of test Pojazd__c records
+    * @return new List<Pojazd__c>
+    */
     public static List<Pojazd__c> addTestVehicles(Integer numberOfTestRecords){
         
         Account acc = addTestAccount();
@@ -32,12 +36,18 @@ public class PojazdTriggerTestDataFactory {
         return testVehicles;
     }
 
+    /*
+    * @return new Account instance
+    */
     public static Account addTestAccount(){
         Account acc = new Account(Name = Constants.testAccountName);
         insert acc;
         return acc;
     }
 
+    /*
+    * @return new Salon instance
+    */
     public static Salon__c addTestSalon(){
         Account acc = PojazdTriggerTestDataFactory.addTestAccount();
 
@@ -46,10 +56,16 @@ public class PojazdTriggerTestDataFactory {
         return testSalon;
     }
 
+    /*
+    * @description Creates List<Pojazd__c> testVehicles with associated List<EnvironmentalImpact__c> testTelemetryData
+    * @param account -> Account that will be associated with test Salon
+    * @param numberOfTestRecords -> Number of testVehicles created 
+    * @return void
+    */
     public static void addTestPojazdEntitiesWithTelemetry(Integer numberOfTestRecords){
 
         List<Pojazd__c> testVehicles = addTestVehicles(numberOfTestRecords);
-
+        insert testVehicles;
         List<EnvironmentalImpact__c> testTelemetryData = new List<EnvironmentalImpact__c>();
         for(Pojazd__c vehicle : testVehicles){
             testTelemetryData.add(new EnvironmentalImpact__c(
