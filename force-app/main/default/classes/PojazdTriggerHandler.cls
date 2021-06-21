@@ -65,9 +65,9 @@ public class PojazdTriggerHandler {
         }
 
         List<EnvironmentalImpact__c> newEnvironmentalImpactRecords = new List<EnvironmentalImpact__c>();
-        List<Telemetria__c> telemetryDataToBeRemoved = new list<Telemetria__c>();
+        List<Telemetria__c> telemetryDataToBeDeleted = new list<Telemetria__c>();
         for(Pojazd__c vehicle : inListOfDeletedCars){
-            List<Telemetria__c> telemetryData = new list<Telemetria__c>([select Norma__c, warto__c, wiek_pojazdu__c from Telemetria__c where Pojazd__c = :vehicle.id]);
+            Telemetria__c telemetryData = ([select Norma__c, warto__c, wiek_pojazdu__c from Telemetria__c where Pojazd__c = :vehicle.id]);
 
             newEnvironmentalImpactRecords.add(new EnvironmentalImpact__c(
             Marka__c = vehicle.Marka__c,
@@ -75,14 +75,13 @@ public class PojazdTriggerHandler {
             Model__c = vehicle.Model__c,
             Numer_seryjny__c = vehicle.Numer_seryjny__c,
             spalanie__c = vehicle.spalanie__c,
-            Norma__c = telemetryData[0].Norma__c,
-            warto__c = telemetryData[0].warto__c,
-            wiek_pojazdu__c = telemetryData[0].wiek_pojazdu__c
+            Norma__c = telemetryData.Norma__c,
+            warto__c = telemetryData.warto__c,
+            wiek_pojazdu__c = telemetryData.wiek_pojazdu__c
             ));
-            telemetryDataToBeRemoved.add(telemetryData);
-            
+            telemetryDataToBeDeleted.add(telemetryData);
         }
-        delete telemetryDataToBeRemoved;
+        delete telemetryDataToBeDeleted;
         insert newEnvironmentalImpactRecords;
     }
 }
