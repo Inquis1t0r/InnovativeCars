@@ -64,10 +64,10 @@ public class SalonTriggerHandler {
         }
 
 
-        List<Salon__c> currentWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
+        List<Salon__c> salonsWithWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
         Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
 
-        for(Salon__c currentWarehouse : currentWarehouses){
+        for(Salon__c currentWarehouse : salonsWithWarehouses){
             existingWareHousesMap.put(currentWarehouse.Account__c, currentWarehouse);
         }
         
@@ -111,10 +111,10 @@ public class SalonTriggerHandler {
         }
 
 
-        List<Salon__c> currentWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
+        List<Salon__c> salonsWithWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
         Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
 
-        for(Salon__c currentWarehouse : currentWarehouses){
+        for(Salon__c currentWarehouse : salonsWithWarehouses){
             existingWareHousesMap.put(currentWarehouse.Account__c, currentWarehouse);
         }
 
