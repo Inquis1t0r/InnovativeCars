@@ -66,15 +66,14 @@ public class SalonTriggerHandler {
 
         List<Salon__c> currentWarehouses = new List<Salon__c>([SELECT id, name, Account__c FROM salon__C WHERE isWarehouse__c = true AND Account__c IN :idAccountList]);
         Map<Id, Salon__c> existingWareHousesMap = new Map<Id, Salon__c>();
-        if(existingWareHousesMap == null || existingWareHousesMap.isEmpty()){
-            throw new IllegalArgumentException(WAREHOUSE_MISSING_MSG);
-        }
 
         for(Salon__c currentWarehouse : currentWarehouses){
             existingWareHousesMap.put(currentWarehouse.Account__c, currentWarehouse);
         }
         
-
+        if(existingWareHousesMap == null || existingWareHousesMap.isEmpty()){
+            throw new IllegalArgumentException(WAREHOUSE_MISSING_MSG);
+        }
 
         for(Salon__c deletedSalon : inClosedSalons){
             try{
