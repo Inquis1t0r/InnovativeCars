@@ -16,7 +16,7 @@ public class PojazdTriggerTestDataFactory {
             testVehicles.add(new Pojazd__c(
                 Name = Constants.testVehicleName + i,
                 Account__c = acc.Id,
-                Salon__c = Constants.testSalon.Id,
+                Salon__c = salon.Id,
                 Cena__c = Constants.testVehiclePrice,
                 Marka__c = Constants.testVehicleBrand,
                 moc__c = Constants.testVehiclePower,
