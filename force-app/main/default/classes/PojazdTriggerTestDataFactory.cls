@@ -5,6 +5,7 @@
  * @description Test data factory for PojazdTriggerTest
  */
 
+@isTest
 public class PojazdTriggerTestDataFactory {
 
     public static List<Pojazd__c> addTestVehicles(Integer numberOfTestRecords){

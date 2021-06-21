@@ -4,6 +4,8 @@
  * @date  24.05.2021
  * @description generates data for testing purposes 
  */
+
+@isTest
 public class OfferTriggerTestDataFactory {
 
     public static Account createTestAccount(){
