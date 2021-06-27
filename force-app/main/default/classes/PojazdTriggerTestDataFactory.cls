@@ -9,15 +9,15 @@
 public class PojazdTriggerTestDataFactory {
 
     /*
-    * @param numberOfTestRecords -> number of test Pojazd__c records
+    * @param inNumberOfTestRecords -> number of test Pojazd__c records
     * @return new List<Pojazd__c>
     */
-    public static List<Pojazd__c> addTestVehicles(Integer numberOfTestRecords){
+    public static List<Pojazd__c> addTestVehicles(Integer inNumberOfTestRecords){
         
         Account acc = addTestAccount();
         Salon__c salon = addTestSalon();
         List<Pojazd__c> testVehicles = new List<Pojazd__c>();
-        for(Integer i = 0; i < numberOfTestRecords; i++){
+        for(Integer i = 0; i < inNumberOfTestRecords; i++){
             testVehicles.add(new Pojazd__c(
                 Name = Constants.testVehicleName + i,
                 Account__c = acc.Id,
@@ -59,12 +59,12 @@ public class PojazdTriggerTestDataFactory {
     /*
     * @description Creates List<Pojazd__c> testVehicles with associated List<EnvironmentalImpact__c> testTelemetryData
     * @param account -> Account that will be associated with test Salon
-    * @param numberOfTestRecords -> Number of testVehicles created 
+    * @param inNumberOfTestRecords -> Number of testVehicles created 
     * @return void
     */
-    public static void addTestPojazdEntitiesWithTelemetry(Integer numberOfTestRecords){
+    public static void addTestPojazdEntitiesWithTelemetry(Integer inNumberOfTestRecords){
 
-        List<Pojazd__c> testVehicles = addTestVehicles(numberOfTestRecords);
+        List<Pojazd__c> testVehicles = addTestVehicles(inNumberOfTestRecords);
         insert testVehicles;
         List<EnvironmentalImpact__c> testTelemetryData = new List<EnvironmentalImpact__c>();
         for(Pojazd__c vehicle : testVehicles){
