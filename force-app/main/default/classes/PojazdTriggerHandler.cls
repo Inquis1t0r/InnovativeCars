@@ -18,7 +18,7 @@ public class PojazdTriggerHandler {
     */
     public static void freeSlotsCheck(List<Pojazd__c> inListOfNewCars){
 
-        if(inListOfNewCars.isEmpty() || inListOfNewCars == null){
+        if(inListOfNewCars == null || inListOfNewCars.isEmpty()){
             throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
         }
 
@@ -31,7 +31,7 @@ public class PojazdTriggerHandler {
         for(pojazd__c currVehicle : inListOfNewCars){
             salonsInListOfNewCars.add(currVehicle.Salon__c);
         }
-        
+
         Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
         for (Salon__c salon : salonsInListOfNewCars) {
             String query = 'SELECT COUNT(Salon__c) FROM Pojazd__c GROUP BY Salon__r.id having Salon__r.id =' + salon.Id;
