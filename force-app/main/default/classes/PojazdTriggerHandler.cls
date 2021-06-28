@@ -34,7 +34,7 @@ public class PojazdTriggerHandler {
 
         Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
         for (Salon__c salon : salonsInListOfNewCars) {
-            String query = 'SELECT COUNT(Salon__c) FROM Pojazd__c GROUP BY Salon__r.id having Salon__r.id =' + salon.Id;
+           String query = 'SELECT COUNT(Salon__c) FROM Pojazd__c GROUP BY Salon__r.id having Salon__r.id =' + salon.Id;
             integer countOccupiedSlots = database.countQuery(query);
             maxSlots.put(salon.Id, salon.Liczba_miejsc__c - countOccupiedSlots);
         }
@@ -58,9 +58,8 @@ public class PojazdTriggerHandler {
     * @description creates new EnvironmentalImpact__c records for deleted vehicles
     */
     public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){
-        List<Telemetria__c> telemetryDataForDeletedCars = new List<Telemetria__c>([select Id from Telemetria__c where Pojazd__c IN :inListOfDeletedCars]);
-        
-        if(telemetryDataForDeletedCars.isEmpty() || telemetryDataForDeletedCars == null){
+
+        if(inListOfDeletedCars.isEmpty() || inListOfDeletedCars == null){
             throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
         }
 

@@ -12,7 +12,7 @@ global class scheduledAccountAssignment implements Schedulable {
   public static final string ACC_ERROR_MSG  = 'Set Account for ';
 
     global void execute(SchedulableContext SC) {
-       List<Pojazd__c> vehiclesToUpdate = new List<Pojazd__c>([select id from Pojazd__c where accountNotConnected__c = true]);
+       List<Pojazd__c> vehiclesToUpdate = new List<Pojazd__c>([select id from Pojazd__c where accountNotConnected__c = true limit 5]);
       
       if(vehiclesToUpdate == null || vehiclesToUpdate.isEmpty()){
         throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
