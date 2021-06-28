@@ -9,6 +9,7 @@
 global class scheduledAccountAssignment implements Schedulable {
 
   public static final string ARGUMENT_ERROR_MSG  = 'List cannot be empty!';
+  public static final string ACC_ERROR_MSG  = 'Set Account for ';
 
     global void execute(SchedulableContext SC) {
        List<Pojazd__c> vehiclesToUpdate = new List<Pojazd__c>([select id from Pojazd__c where accountNotConnected__c = true]);
@@ -18,7 +19,11 @@ global class scheduledAccountAssignment implements Schedulable {
       }
       
        for(Pojazd__c vehicle : vehiclesToUpdate){
-        vehicle.Account__c = vehicle.Salon__r.Account__c;
+         if(!(vehicle.Salon__r.Account__c == null)){
+          vehicle.Account__c = vehicle.Salon__r.Account__c;
+         }else{
+          throw new IllegalArgumentException(ACC_ERROR_MSG + vehicle.Salon__r.Id);
+         }
        }
      }
 }
