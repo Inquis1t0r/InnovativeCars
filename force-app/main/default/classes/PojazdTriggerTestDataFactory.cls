@@ -9,6 +9,8 @@
 public class PojazdTriggerTestDataFactory {
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  26.05.2021
     * @param inNumberOfTestRecords -> number of test Pojazd__c records
     * @return new List<Pojazd__c>
     */
@@ -37,6 +39,8 @@ public class PojazdTriggerTestDataFactory {
     }
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  26.05.2021
     * @return new Account instance
     */
     public static Account addTestAccount(){
@@ -46,6 +50,8 @@ public class PojazdTriggerTestDataFactory {
     }
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  26.05.2021
     * @return new Salon instance
     */
     public static Salon__c addTestSalon(){
@@ -57,6 +63,8 @@ public class PojazdTriggerTestDataFactory {
     }
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  26.05.2021
     * @description Creates List<Pojazd__c> testVehicles with associated List<EnvironmentalImpact__c> testTelemetryData
     * @param account -> Account that will be associated with test Salon
     * @param inNumberOfTestRecords -> Number of testVehicles created 
