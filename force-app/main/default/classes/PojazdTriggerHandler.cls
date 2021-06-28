@@ -1,0 +1,86 @@
+/**
+ *
+ * @author  <piotr.kazimierski@accenture.com>
+ * @date  24.05.2021
+ * @description Handler for Pojazd__c Trigger
+ */
+public class PojazdTriggerHandler {
+
+    public static final string ERROR_MSG = 'Liczba miejsc w salonie przekroczona! Maksymalna pojemność salonu :';
+    public static final string ARGUMENT_ERROR_MSG  = 'List cannot be empty!';
+
+    /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  24.05.2021
+    * @params List<Pojazd__c> (new vehicles) / Trigger.New
+    * @return void
+    * @description method checks if there is enaught free slots for new Pojazd__c objects
+    */
+    public static void freeSlotsCheck(List<Pojazd__c> inListOfNewCars){
+
+        if(inListOfNewCars == null || inListOfNewCars.isEmpty()){
+            throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
+        }
+
+        Set<Id> salonIds = new Set<Id>();
+        for (Pojazd__c vehicle : inListOfNewCars) {
+            salonIds.add(vehicle.Salon__c);
+        }
+        
+        List<Salon__c> salonsInListOfNewCars = new List<Salon__c>();
+        for(pojazd__c currVehicle : inListOfNewCars){
+            salonsInListOfNewCars.add(currVehicle.Salon__c);
+        }
+
+        Map<Id, Decimal> maxSlots = new Map<Id, Decimal>();
+        for (Salon__c salon : salonsInListOfNewCars) {
+           String query = 'SELECT COUNT(Salon__c) FROM Pojazd__c GROUP BY Salon__r.id having Salon__r.id =' + salon.Id;
+            integer countOccupiedSlots = database.countQuery(query);
+            maxSlots.put(salon.Id, salon.Liczba_miejsc__c - countOccupiedSlots);
+        }
+
+        For(Pojazd__c poj : inListOfNewCars)
+        {             
+            Decimal salonSlots = maxSlots.get(poj.Salon__c);
+            if(salonSlots > 0){
+                maxSlots.put(poj.Salon__c, salonSlots - 1);
+            }else{ 
+                poj.adderror(ERROR_MSG + salonSlots);
+            }
+        }
+    }
+
+    /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  24.05.2021
+    * @params List<Pojazd__c> (deleted vehicles) / Trigger.Old
+    * @return void
+    * @description creates new EnvironmentalImpact__c records for deleted vehicles
+    */
+    public static void createEnvironmentalTelemetryData(List<Pojazd__c> inListOfDeletedCars){
+
+        if(inListOfDeletedCars.isEmpty() || inListOfDeletedCars == null){
+            throw new IllegalArgumentException(ARGUMENT_ERROR_MSG);
+        }
+
+        List<EnvironmentalImpact__c> newEnvironmentalImpactRecords = new List<EnvironmentalImpact__c>();
+        List<Telemetria__c> telemetryDataToBeDeleted = new list<Telemetria__c>();
+        for(Pojazd__c vehicle : inListOfDeletedCars){
+            Telemetria__c telemetryData = ([select Norma__c, warto__c, wiek_pojazdu__c from Telemetria__c where Pojazd__c = :vehicle.id]);
+
+            newEnvironmentalImpactRecords.add(new EnvironmentalImpact__c(
+            Marka__c = vehicle.Marka__c,
+            moc__c = vehicle.moc__c,
+            Model__c = vehicle.Model__c,
+            Numer_seryjny__c = vehicle.Numer_seryjny__c,
+            spalanie__c = vehicle.spalanie__c,
+            Norma__c = telemetryData.Norma__c,
+            warto__c = telemetryData.warto__c,
+            wiek_pojazdu__c = telemetryData.wiek_pojazdu__c
+            ));
+            telemetryDataToBeDeleted.add(telemetryData);
+        }
+        delete telemetryDataToBeDeleted;
+        insert newEnvironmentalImpactRecords;
+    }
+}
