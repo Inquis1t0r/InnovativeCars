@@ -9,6 +9,8 @@
 public class PojazdTriggerTest {
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  26.05.2021
     * @description Verifies that deleted vehicles leads to EnvironmentalImpact__c record creation
     */
     @isTest
@@ -27,6 +29,8 @@ public class PojazdTriggerTest {
     }
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  26.05.2021
     * @description Verifies that vehicle cannot be added then there are no free slots in salon
     */
     @isTest
@@ -63,6 +67,8 @@ public class PojazdTriggerTest {
     }
 
     /*
+    * @author  <piotr.kazimierski@accenture.com>
+    * @date  26.05.2021
     * @description Verifies that vehicle can be added then there are free slots in salon
     */
     @isTest
